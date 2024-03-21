@@ -1,0 +1,16 @@
+<krpano>
+    <!-- 갤러리 소개문 plugin -->
+    <!-- 이미지? 텍스트문 ? -->
+    <plugin name="gallery_info" url="../common/gallery_info.svg" align="lefttop" x="25" y="25"
+            width="104" height="104" alpha="0.5" scale="0.5" onover="tween(alpha,1);" onout="tween(alpha,0.5);"
+            visible="false" onclick="tipViewOpen();"/>
+    <!-- sound button plugin -->
+    <!-- crop="start_X|start_Y|width|height" -->
+    <plugin name="sound" url="../common/sound.svg" align="righttop" x="85" y="25"
+            width="104" height="104" alpha="0.5" scale="0.5" onover="tween(alpha,1);" onout="tween(alpha,0.5);"
+            visible="false" crop="0|0|104|104" onclick="togglesound(bgm); switch(crop, 0|0|104|104, 104|0|104|104);"/>
+    <!-- exit fullscreen plugin-->
+    <plugin name="exit" url="../common/exit.svg" align="righttop" x="25" y="25"
+            width="104" height="104" alpha="0.5" scale="0.5" onover="tween(alpha,1);" onout="tween(alpha,0.5);"
+	        visible="false" onclick="set(fullscreen, false);"/>
+</krpano>

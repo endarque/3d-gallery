@@ -1,0 +1,313 @@
+﻿<krpano version="1.20.8" title="Virtual Tour">
+    <include url="skin/vtourskin.xml"/>
+    <include url="vrgallery/sample/sample_3/plugin/add_hotspot.xml"/>
+    <!--  customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ...  -->
+    <skin_settings maps="false" maps_type="google" maps_bing_api_key="" maps_google_api_key="" maps_zoombuttons="false"
+                   gyro="true" webvr="true" webvr_gyro_keeplookingdirection="false" webvr_prev_next_hotspots="true"
+                   littleplanetintro="false" title="true" thumbs="false" thumbs_width="120" thumbs_height="80"
+                   thumbs_padding="10" thumbs_crop="0|40|240|160" thumbs_opened="false" thumbs_text="false"
+                   thumbs_dragging="true" thumbs_onhoverscrolling="false" thumbs_scrollbuttons="false"
+                   thumbs_scrollindicator="false" thumbs_loop="false" tooltips_buttons="false" tooltips_thumbs="false"
+                   tooltips_hotspots="false" tooltips_mapspots="false" deeplinking="false" loadscene_flags="MERGE"
+                   loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+                   loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+                   loadscene_blend_next="SLIDEBLEND(0.5, 0, 0.75, linear)" loadingtext="" layout_width="100%"
+                   layout_maxwidth="500" controlbar_width="-24" controlbar_height="40" controlbar_offset="20"
+                   controlbar_offset_closed="-40" controlbar_overlap.no-fractionalscaling="10"
+                   controlbar_overlap.fractionalscaling="0" design_skin_images="vtourskin.png" design_bgcolor="0x2D3E50"
+                   design_bgalpha="0.8" design_bgborder="0" design_bgroundedge="1" design_bgshadow="0 4 10 0x000000 0.3"
+                   design_thumbborder_bgborder="3 0xFFFFFF 1.0" design_thumbborder_padding="2"
+                   design_thumbborder_bgroundedge="0" design_text_css="color:#FFFFFF; font-family:Arial;"
+                   design_text_shadow="1"/>
+    <!--
+            For an alternative skin design either change the <skin_settings> values
+            from above or optionally include one of the predefined designs from below.
+         -->
+    <include url="skin/vtourskin_design_ultra_light.xml"/>
+    <!--  <include url="skin/vtourskin_design_flat_light.xml"  />  -->
+    <!--  <include url="skin/vtourskin_design_glass.xml"       />  -->
+    <!--  <include url="skin/vtourskin_design_ultra_light.xml" />  -->
+    <!--  <include url="skin/vtourskin_design_117.xml"         />  -->
+    <!--  <include url="skin/vtourskin_design_117round.xml"    />  -->
+    <!--  <include url="skin/vtourskin_design_black.xml"       />  -->
+    <!--  startup action - load the first scene  -->
+    <action name="startup" autorun="onstart">if(startscene === null OR !scene[get(startscene)],
+        copy(startscene,scene[0].name); ); loadscene(get(startscene), null, MERGE); if(startactions !== null,
+        startactions() ); skin_hideskin();
+    </action>
+    <autorotate enabled="true" waittime="3" speed="3" horizon="0.0" tofov="360"/>
+    <scene name="scene_s37" title="촉각명화 작품을 통해 만나보는 색의 이야기: RED" onstart="" thumburl="panos/s50.tiles/thumb.jpg" lat=""
+           lng="" heading="">
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+        <preview url="panos/s50.tiles/preview.jpg"/>
+        <image>
+            <cube url="panos/s50.tiles/pano_%s.png"/>
+        </image>
+        <!--  start playing the sound  -->
+        <events name="currentpano" onnewpano="" onremovepano="stopsound(bgsnd);"/>
+        <!--  a button to pause/play the sound  -->
+        <plugin name="snd2" url="/vr/template/common/soundonoff.png" align="righttop" x="25" y="20" alpha="0.25"
+                scale="0.7" onover="tween(alpha,1);" onout="tween(alpha,0.25);" crop="0|0|50|50"
+                onclick="pausesoundtoggle(bgsnd); switch(crop, 0|0|50|50, 0|50|50|50);"/>
+        <plugin name="snd3" url="/vr/template/common/gallery360_logo.png" align="top" x="0" y="20" alpha="1" scale="0.5"
+                onover="tween(alpha,1);" onout="tween(alpha,1);"
+                onclick="openurl(https://exhibit.gallery360.co, _blank);"/>
+        <addhs_settings sound_close_click="true" video_close_click="true" youtube_close_click="false"/>
+        <hotspot name="hotspot_1" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_01.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="0" atv="0" width="147" height="178" rx="0" ry="0" rz="0" ox="-591.6782464725404"
+                 oy="-88.9579979052707" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="어린 소녀가 있는 실내"
+                 scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_01&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_2" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="0" atv="0" width="147"
+                 height="178" rx="0" ry="0" rz="0" ox="-591.6782464725404" oy="-88.9579979052707" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="어린 소녀가 있는 실내" scene_EL="scene_s37"
+                 scene_num="0" drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+        <hotspot name="hotspot_3" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_02.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="0" atv="0" width="161" height="133" rx="0" ry="0" rz="0" ox="-101.07449259311323"
+                 oy="-45.82861835141455" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="붉은색의 조화"
+                 scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_02&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_4" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="0" atv="0" width="161"
+                 height="133" rx="0" ry="0" rz="0" ox="-101.07449259311323" oy="-45.82861835141455" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="붉은색의 조화" scene_EL="scene_s37" scene_num="0"
+                 drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+        <hotspot name="hotspot_5" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_03.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="0" atv="0" width="141" height="142" rx="0" ry="0" rz="0" ox="402.0242392830771"
+                 oy="-58.67247766388675" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="뮤직"
+                 scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_03&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_6" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="0" atv="0" width="141"
+                 height="142" rx="0" ry="0" rz="0" ox="402.0242392830771" oy="-58.67247766388675" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="뮤직" scene_EL="scene_s37" scene_num="0"
+                 drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+        <hotspot name="hotspot_7" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_04.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="270" atv="0" width="63" height="81" rx="0" ry="0" rz="0" ox="-562.6505497251375"
+                 oy="-44.37024463958488" rotate="0" scale="1" edge="lefttop" install_onclick="0"
+                 name_hs="루마니아풍의 블라우스를 입은 여인" scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140"
+                 enabled2="true" visible2="true" drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_04&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_8" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="270" atv="0" width="63"
+                 height="81" rx="0" ry="0" rz="0" ox="-562.6505497251375" oy="-44.37024463958488" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="루마니아풍의 블라우스를 입은 여인" scene_EL="scene_s37"
+                 scene_num="0" drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+        <hotspot name="hotspot_9" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_05.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="270" atv="0" width="130" height="103" rx="0" ry="0" rz="0" ox="-265.6128185907047"
+                 oy="-52.15631113014922" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="생일"
+                 scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_05&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_10" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="270" atv="0" width="130"
+                 height="103" rx="0" ry="0" rz="0" ox="-265.6128185907047" oy="-52.15631113014922" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="생일" scene_EL="scene_s37" scene_num="0"
+                 drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+        <hotspot name="hotspot_11" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_06.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="270" atv="0" width="84" height="64" rx="0" ry="0" rz="0" ox="-0.4612821430193321"
+                 oy="-30.99954994093872" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="파라솔을 든 소"
+                 scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_06&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_12" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="270" atv="0" width="84"
+                 height="64" rx="0" ry="0" rz="0" ox="-0.4612821430193321" oy="-30.99954994093872" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="파라솔을 든 소" scene_EL="scene_s37"
+                 scene_num="0" drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+        <hotspot name="hotspot_13" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_07.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="90" atv="0" width="64" height="81" rx="0" ry="0" rz="0" ox="-169.59395302348833"
+                 oy="-44.51486518645436" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="실물보다 큰 장미"
+                 scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_07&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_14" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="90" atv="0" width="64"
+                 height="81" rx="0" ry="0" rz="0" ox="-169.59395302348833" oy="-44.51486518645436" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="실물보다 큰 장미" scene_EL="scene_s37"
+                 scene_num="0" drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+        <hotspot name="hotspot_15" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_08.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="90" atv="0" width="50" height="58" rx="0" ry="0" rz="0" ox="13.571339330334695"
+                 oy="-20.39043663671265" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="다혈질의 소녀"
+                 scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_08&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_16" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="90" atv="0" width="50"
+                 height="58" rx="0" ry="0" rz="0" ox="13.571339330334695" oy="-20.39043663671265" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="다혈질의 소녀" scene_EL="scene_s37" scene_num="0"
+                 drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+        <hotspot name="hotspot_17" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_09.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="90" atv="0" width="55" height="59" rx="0" ry="0" rz="0" ox="183.9836331834083"
+                 oy="-18.80207931748413" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="세네치오"
+                 scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_09&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_18" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="90" atv="0" width="55"
+                 height="59" rx="0" ry="0" rz="0" ox="183.9836331834083" oy="-18.80207931748413" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="세네치오" scene_EL="scene_s37" scene_num="0"
+                 drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+        <hotspot name="hotspot_19" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_10.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="90" atv="0" width="60" height="83" rx="0" ry="0" rz="0" ox="345.8951774112944"
+                 oy="-38.472952601981774" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="불안"
+                 scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_10&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_20" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="90" atv="0" width="60"
+                 height="83" rx="0" ry="0" rz="0" ox="345.8951774112944" oy="-38.472952601981774" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="불안" scene_EL="scene_s37" scene_num="0"
+                 drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+        <hotspot name="hotspot_21" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_11.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="90" atv="0" width="61" height="80" rx="0" ry="0" rz="0" ox="514.8938030984507"
+                 oy="-28.638660321002305" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="절규"
+                 scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_11&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_22" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="90" atv="0" width="61"
+                 height="80" rx="0" ry="0" rz="0" ox="514.8938030984507" oy="-28.638660321002305" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="절규" scene_EL="scene_s37" scene_num="0"
+                 drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+        <hotspot name="hotspot_23" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_12.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="180" atv="0" width="49" height="58" rx="0" ry="0" rz="0" ox="-263.8260036648343"
+                 oy="-27.577895080237738" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="꿈"
+                 scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_12&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_24" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="180" atv="0" width="49"
+                 height="58" rx="0" ry="0" rz="0" ox="-263.8260036648343" oy="-27.577895080237738" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="꿈" scene_EL="scene_s37" scene_num="0"
+                 drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+        <hotspot name="hotspot_25" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_13.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="180" atv="0" width="43" height="52" rx="0" ry="0" rz="0" ox="-115.56013659836748"
+                 oy="-26.1312676994836" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="수탉"
+                 scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_13&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_26" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="180" atv="0" width="43"
+                 height="52" rx="0" ry="0" rz="0" ox="-115.56013659836748" oy="-26.1312676994836" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="수탉" scene_EL="scene_s37" scene_num="0"
+                 drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+        <hotspot name="hotspot_27" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_14.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="180" atv="0" width="67" height="45" rx="0" ry="0" rz="0" ox="32.63743128435783"
+                 oy="-20.956488422455493" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="사과와 오렌지"
+                 scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_14&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_28" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="180" atv="0" width="67"
+                 height="45" rx="0" ry="0" rz="0" ox="32.63743128435783" oy="-20.956488422455493" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="사과와 오렌지" scene_EL="scene_s37" scene_num="0"
+                 drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+        <hotspot name="hotspot_29" keep="false" style="link_hs_sm"
+                 url="vrgallery/sample/sample_3/image/img_15.jpg"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="180" atv="0" width="46" height="56" rx="0" ry="0" rz="0" ox="201.44760952856905"
+                 oy="-28.599830243608267" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="어변성룡도"
+                 scene_EL="scene_s37" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="iframe_add_hotspot(IFRAME_HTML, TARGET_LAYER_NAME,/detail?id=img_15&amp;key=sample_3);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_30" keep="false" type="text" style="text_hs_sm" distorted="true" alpha="1" capture="true"
+                 handcursor="true" depth="1000" zorder="4" flying="0" zoom="false" ath="180" atv="0" width="46"
+                 height="56" rx="0" ry="0" rz="0" ox="201.44760952856905" oy="-28.599830243608267" rotate="0" scale="1"
+                 edge="lefttop" install_onclick="12" info_Ah="null" name_hs="어변성룡도" scene_EL="scene_s37" scene_num="0"
+                 drag_hs="true" fov_EL="120" enabled2="true" visible2="true" bgborder="0 0xFFFFFF 1"
+                 bgroundedge="3 3 3 3" bgshadow="5 5 5 0x000000 0.50" txtshadow="0 0 0 0x000000 0.50"
+                 mergedalpha="false" oversampling="2" mipmapping="false" interactivecontent="false" html=""/>
+    </scene>
+</krpano>

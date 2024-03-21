@@ -1,0 +1,311 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="/static/resource/rental/js/lib/jquery-3.3.1.min.js"></script>
+    <script src="/static/resource/rental/js/lib/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='resource/rental/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='resource/rental/css/slick.vote.css') }}">
+    <link rel="stylesheet" href="/static/resource/rental/css/style.css?open&pv=220614">
+
+    <script src="/static/resource/rental/js/slick.js"></script>
+</head>
+<body style="" class="">
+    <section id="vr_section">
+        <div class="slider">
+            <div class="slide">
+                <figure>
+                        <img id="{{key_1}}_img" src="{{url_for('static', filename='vr/vr/xml/vrgallery/sample/sample_1/image/jiwon@pabloarts.com-spl-1655426054437_92a6af4c11fe2bbcbfcdbc66d74a913a.679700-1676967823551_shadow.jpg')}}">
+                </figure>
+                <div class="text">
+                    <div class="category">ART BONBON EXHIBITION</div>
+                    <h1 class="title">BONBON GALLERY 2022년 3월 우수작</h1>
+                    <p class="summary">귀여운 아이들이 그린
+                        BONBON GALLERY의
+                        2022년 3월 컬렉션. </p>
+                </div>
+            </div>
+            <div class="slide">
+                <figure>
+                    <img id="{{key_2}}_img" src="{{url_for('static', filename='vr/vr/xml/vrgallery/sample/sample_2/image/samples/land_1.png')}}">
+                </figure>
+                <div class="text">
+                    <div class="category">ART BONBON EXHIBITION</div>
+                    <h1 class="title">METAVERSE MAP DATA</h1>
+                    <p class="summary">메타버스 환경에서 사용할 수 있는
+                        다양한 맵들을
+                        VR 환경에서 만나보세요.
+                    </p>
+                </div>
+            </div>
+            <div class="slide">
+                <figure>
+                    <img id="{{key_3}}_img" src="{{url_for('static', filename='vr/vr/xml/vrgallery/sample/sample_3/image/img_01.jpg')}}">
+                </figure>
+                <div class="text">
+                    <div class="category">ART BONBON EXHIBITION</div>
+                    <h1 class="title">BONBON GALLERY 2022년 2월 우수작</h1>
+                    <p class="summary">귀여운 아이들이 그린
+                        BONBON GALLERY의
+                        2022년 2월 컬렉션. </p>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- VR ends -->
+<!-- VR -->
+<script src="/static/resource/in/js/krpano-1.20.8.js"></script>
+<!-- krpano 설정 함수-->
+<script src="/static/resource/in/js/krpano_control.js?open&amp;ver=220713.1"></script>
+<!-- 수정이 필요한 함수 -->
+<script src="/static/resource/rental/js/functions.js?open&amp;ver=220517"></script>
+
+<script>
+$(function(){
+  initSlider();
+});
+
+function initSlider() {
+
+    var slider = $(".slider");
+
+    slider.on("init", function(slick) {
+        checkSlides(this, 0);
+    });
+
+    slider.on("beforeChange", function(event, slick, currentSlide, nextSlide) {
+        $(this).addClass("changing");
+    });
+
+    slider.on("afterChange", function(event, slick, currentSlide) {
+        $(this).removeClass("changing");
+        checkSlides(this, currentSlide);
+    });
+
+    slider.slick({
+        prevArrow: "<button type='button' class='slick-prev' aria-label='Previous picture'></button>",
+        nextArrow: "<button type='button' class='slick-next' aria-label='Next Picture'></button>",
+        centerMode: true,
+        variableWidth: true,
+        dots: true,
+        autoplay: true,
+        slidesToShow: 1,
+        adaptiveHeight: false,
+    });
+}
+
+function checkSlides(slider, currentSlide) {
+    var slides = $(".slide", $(slider));
+    slides.removeClass("prev");
+    slides.filter(function(index) {
+    return $(this).attr("data-slick-index") < currentSlide;
+    }).addClass("prev");;
+}
+
+$('.slide').click(function() {
+    var id = $(this).find('img').attr('id');
+    window.open('/' + id.replace('_img', ''));
+});
+</script>
+<style>
+.slide {
+    width: 896px;
+    max-height: 568px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 15px
+}
+
+.slide img {
+    max-width: 100%;
+    position: relative;
+    transition: all 1s ease-out;
+}
+
+.slide.slick-center img {
+    transition: all 1s ease-out;
+    opacity: 1;
+}
+
+.slick-prev,
+.slick-next {
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    margin: auto;
+    position: absolute;
+    z-index: 3000;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+.slick-next {
+    right: calc(50% - 545px);
+    text-indent: 1px
+}
+
+.slick-prev {
+    left: calc(50% - 545px);
+    text-indent: -2px
+}
+
+.slick-arrow {
+    background: none;
+    border: none;
+    position: absolute;
+    bottom: 33px;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 0;
+    width: 33px;
+    height: 33px;
+    line-height: 34px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 20;
+    -webkit-transition: background-color .2s ease 0s;
+    transition: background-color .2s ease 0s
+}
+
+.slick-arrow:hover {
+    background-color: rgba(255, 255, 255, .2)
+}
+
+.slick-dots {
+    position: absolute;
+    bottom: 0;
+    right: calc(50% - 432px);
+    padding: 0;
+    margin: 0;
+    list-style: none
+}
+
+.slick-dots li {
+    float: left;
+    display: block;
+    margin: 1rem .2rem;
+    font-size: 0
+}
+
+.slick-dots button {
+    border: 0;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .4);
+    width: .8rem;
+    height: .8rem;
+    border-radius: 50%;
+    text-indent: 9999px;
+    padding: 0
+}
+
+.slider .slick-dots .slick-active button {
+    background: rgba(255, 255, 255, .8)
+}
+
+.text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0 33px 99px;
+    color: #fff;
+    z-index: 5;
+    -webkit-transition: all .2s ease 0s;
+    transition: all .2s ease 0s;
+    -webkit-transform: translateY(0);
+    transform: translateY(0)
+}
+
+.prev .text {
+    text-align: right;
+    float: right;
+}
+
+.slick-active .text {
+    padding: 0 55px 99px
+}
+
+.category {
+    text-transform: uppercase;
+    color: #DE751F;
+}
+
+.title {
+    font-size: 1.1rem;
+    line-height: 1.15em;
+    margin: .4rem 0 0;
+    -webkit-transition: all .6s ease 0s;
+    transition: all .6s ease 0s;
+    color: #fff;
+}
+
+.slider.changing .text {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%)
+}
+
+.slick-active .title {
+    margin-top: .8rem;
+    font-size: 3.1rem;
+    -webkit-transition: all .4s ease .2s;
+    transition: all .4s ease .2s
+}
+
+.summary {
+    position: relative;
+    height: 1px;
+    top: 100px;
+    font-weight: 400;
+    margin: 0;
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+    -webkit-transition: all .4s ease 0s;
+    transition: all .4s ease 0s
+}
+
+.slick-active .summary {
+    top: 5px;
+    -webkit-transition: all .4s ease .2s;
+    transition: all .4s ease .2s
+}
+
+.slide:before {
+    content: "";
+    display: block;
+}
+
+.slide figure:before,
+.slide figure:after {
+    content: "";
+    position: absolute;
+    top: 10%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .25);
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .7) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, .7)));
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .7) 100%);
+    background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .7) 100%);
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .7) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .7) 100%)
+}
+
+.slide figure:before {
+    top: 0;
+    background: transparent;
+    z-index: 1;
+    -webkit-transition: background-color .4s ease 0s;
+    transition: background-color .4s ease 0s
+}
+
+.slide:hover figure:before,
+.slide:focus figure:before {
+    background: rgba(39, 37, 30, .6)
+}
+</style>
+
+</body>
+</html>

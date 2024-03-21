@@ -1,0 +1,39 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='resource/rental/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="/static/sample/gallery_components/style.css">
+</head>
+<body style="" class="">
+<button id="vr_button">click</button>
+<!-- VR -->
+<!-- VR이 동작하기 위해서는 이 부분 HTML 만 있어도 됩니다. -->
+<div id="vrGallery_layer" class="vrGallery_layer">
+    <div id="vrGallery_area" class="vrGallery_area">
+
+    </div>
+</div>
+<!-- VR ends -->
+<script src="/static/resource/rental/js/lib/jquery-3.3.1.min.js"></script>
+<!-- VR -->
+<script src="/static/sample/krpano-1.21.js"></script>
+<!-- krpano 설정 함수-->
+<!--<script src="/static/resource/in/js/krpano_control.js"></script>-->
+<script src="/static/sample/vr_control.js"></script>
+<!-- 수정이 필요한 함수 -->
+<!--<script src="/static/resource/rental/js/functions.js"></script>-->
+<script src="/static/sample/gallery_functions.js"></script>
+
+<script>
+    var key = '{{ key }}';
+    window._artbonbon = new artbonbon();
+    _artbonbon.setPano(key, 1000, false);
+
+    $('#vr_button').click(function() {
+        $('#vrGallery_layer').addClass('show');
+        _artbonbon.panoFullScreen();
+    });
+</script>
+</body>
+</html>

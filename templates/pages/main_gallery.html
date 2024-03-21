@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SAMPLE</title>
+    <meta property="og:image" content="static/images/artimage/image1.jpg">
+    <meta name="description" content="BONBON GALLERY">
+    <meta property="og:title" content="BONBON GALLERY">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="#">
+    <meta property="og:site_name" content="BONBON GALLERY">
+    <meta property="og:description" content="BONBON GALLERY">
+    <meta name="google" content="notranslate">
+
+    <script src="{{ url_for('static', filename='js/plugin/jquery-3.3.1.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/plugin/bootstrap.min.js') }}"></script>
+    <link rel="stylesheet" href="/static/resource/rental/css/bootstrap.min.css">
+
+    <script async="" src="static/resource/book/js/three.min.js?open&v=1.0"></script>
+    <script async="" src="static/resource/book/js/flipbook.webgl.min.js?open&v=1.0"></script>
+    <script async="" src="static/resource/book/js/iscroll.min.js?open&v=1.0"></script>
+    <script src="{{url_for('static', filename='resource/book/js/jquery.js')}}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/book.css')}}">
+    <script src="static/resource/book/js/flipbook.min.js?open&v=1.0"></script>
+    <script src="static/resource/book/js/promise.js?open&v=1.0"></script>
+    <script src="static/resource/book/js/fetch.js?open&v=1.0"></script>
+    <script src="static/js/main_gallery.js"></script>
+    <script src="static/js/draw.js"></script>
+    <script src="static/js/intro.js"></script>
+
+    <link href="{{ url_for('static', filename='css/intro.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/draw.css') }}" rel="stylesheet">
+
+</head>
+<body >
+    {% include '/contents/main_gallery/top.html' %}
+    <!-- Main content -->
+    {% include '/contents/main_gallery/section_1.html' %}
+    {% include '/contents/main_gallery/section_2.html' %}
+    {% include '/contents/main_gallery/section_3.html' %}
+    {% include '/contents/main_gallery/section_4.html' %}
+    {% include '/contents/main_gallery/section_flip.html' %}
+    {% include '/modal.html' %}
+</body>
+<script>
+    var key_1 = '{{ key_1 }}';
+    var key_2 = '{{ key_2 }}';
+    var key_3 = '{{ key_3 }}';
+</script>
+</html>
+

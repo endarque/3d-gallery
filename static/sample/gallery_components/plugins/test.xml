@@ -1,0 +1,594 @@
+<krpano onstart="startup()">
+    <include url="../../plugins/depthmap_navigation_newType20.xml"/>
+    <include url="../../plugins/showtext.xml"/>
+    <!--  최초 실행 함수  -->
+    <action name="startup">
+        <!--  휠사용안함.  -->
+        set(control.movetoyfriction, 0.5);
+        <!--  마우스 수직이동시 가충치 적용  -->
+        <!-- set(control.touchzoom, false);  모바일 손가락 확대/축소 비활성   -->
+        set(control.disablewheel, true); tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye,
+        calc(''+image.ox+'|'+image.oy+'|-166|0|22|0|0'), 0.5, default ); lookto(90,0,90,smooth(100,100,100));
+        <!--  로딩화면 숨기기  -->
+        set(layer[loding].visible, false); set(layer[logo].visible, true);
+        <!--  set(layer[introView].visible, true);
+                set(layer[introTitle].visible, true);
+                set(layer[authorName].visible, true);
+                set(layer[introIcon].visible, true);
+                set(layer[introIconTxt].visible, true);
+                set(layer[mainText].visible, true);
+                set(layer[bgView].visible, true);  -->
+        <!--  전역변수  -->
+        set(toogle,0); set(autoPlay,0); set(tip,0);
+        <!--  set(num, 0);  -->
+        set(fullscreen, false); resetview2();
+    </action>
+    <!--  로딩화면  -->
+    <layer name="loding" type="container" align="center" bgborder="0xFFFFFF" width="100%" height="100%"/>
+    <action name="iframe_embed">addlayer(%1); set(layer[%1].parent, %4); set(layer[%1].align, lefttop);
+        set(layer[%1].width, 100%); set(layer[%1].height, 100%); if (device.html5, txtadd (%3, '[iframe id="iframeIntro"
+        width="100%" height="100%" src="%2" frameborder="0" allow-same-origin allowfullscreen] [/ iframe] ');
+        copy(layer[%1].html, %3); set(layer[%1].padding, 0); set(layer[%1].url, 'textfield.swf');
+        set(layer[%1].interactivecontent, true); set(layer[%1].onloaded, iframe_resize (%1);); , showlog (); trace
+        (error, 'Iframe이 플래시 모드에서 작동하지 않습니다!'); );
+    </action>
+    <action name="iframe_resize" type="Javascript" devices="html5">
+        <![CDATA[ document.querySelector("#iframeIntro").parentNode.style.height = "100%"; ]]>
+    </action>
+    <!--  상세뷰: 기본
+        <action name = "iframeDetailView">
+            addlayer(ly1);
+            set(layer[ly1].align, center);
+            set(layer[ly1].width, 600);
+            set(layer[ly1].height, 430);
+            set(layer[ly1].visible, true);
+            if (device.html5,
+                txtadd (%1, '[iframe id="detailView" width="600px" height="430px" src="%2" frameborder="0"  allowfullscreen] [/ iframe] ');
+                copy(layer[ly1].html, %1);
+                set(layer[ly1].padding, 0);
+                set(layer[ly1].bgalpha, 0.0);
+                set(layer[ly1].url, 'textfield.swf');
+                set(layer[ly1].interactivecontent, true);
+                ,
+                showlog ();
+                trace (error, 'Iframe이 플래시 모드에서 작동하지 않습니다!');
+            );
+        </action>
+      -->
+    <!--  상세뷰 아이프레임 -->
+    <action name="iframeDetailView">if (device.html5, popup('iframe', %2, 700, 800, true); , showlog (); trace (error,
+        'Iframe이 플래시 모드에서 작동하지 않습니다!'); );
+    </action>
+    <!--  전체화면: 상세뷰 아이프레임관련  -->
+    <plugin name="pp_blur" keep="true" url="../../plugins/pp_blur.js" enabled="true" range="0.0" linearrgb="false"
+            order="1" phase="2"/>
+    <action name="popup" scope="private:POPUP" args="type, content, width, height, scrollbars">
+        <![CDATA[ if(popup, break(); ); addlayer('popup_bg', popup_bg); set(popup_bg, type=container, align=lefttop, width=100%, height=100%, zorder=99, handcursor=false, bgcapture=true, capture=false, //bgcolor=0x123456, onloaded='tween(bgalpha,0.3,1.0);', // optional: colorize the background ondown='closeView()' ); addlayer('popup', popup); set(popup, type=container, parent='popup_bg', width=calc(global.stagewidth*0.9), height=calc(global.stageheight*0.8), align=centercenter, bgborder='0 0x555555 1', bgcolor=0xffffff, bgalpha=0, bgshadow='0 10 20 0x000000 0', bgcapture=true, maskchildren=false, capture=true, handcursor=false, alpha=0 ); if(type == 'html', copy(popup.datacontent, content); calc(popup.onloaded, 'add_html_code(get(datacontent),'+scrollbars+');'); ,type == 'iframe', calc(popup.datacontent, '<iframe style="position:absolute;width:100%;height:100%;top:50%;left:50%;transform: translate(-50%, -50%);" class="container px-0" src="'+content+'" frameborder="0" allowfullscreen></iframe>'); calc(popup.onloaded, 'add_html_code(get(datacontent),'+scrollbars+');'); ,type == 'image', set(popup, bgcolor=0xFFFFFF, bgalpha=1, ); addlayer("popup_image", img); set(img, url=get(content), align=center, width=-20, height=-20, parent=get(popup.name), onloaded='popup_imageloaded()' ); ); tween(global.plugin[pp_blur].range, 40.0); delayedcall(0.2, tween(global.layer[popup].alpha, 1.0); ); set(global.events[popup].onclick, popup_close() ); set(global.events[popup].onremovepano, popup_close() ); ]]>
+    </action>
+    <action name="popup_close">set(global.plugin[popup_bg].enabled, false); set(global.events[popup].name, null);
+        tween(global.plugin[pp_blur].range, 0.0); tween(global.layer[popup_bg].bgalpha, 0.0, 0.25);
+        tween(global.layer[popup].alpha, 0.0, 0.25, default, removelayer('popup_bg', true); scope(private:POPUP,
+        delete(popup); ); );
+    </action>
+    <action name="popup_imageloaded" scope="private:POPUP">calc(imgw, caller.imagewidth + 20); calc(imgh,
+        caller.imageheight + 20); calc(maxw, global.stagewidth*0.9); calc(maxh, global.stageheight*0.8); if(imgw GT
+        maxw, calc(imgh, round(imgh * maxw / imgw)); copy(imgw, maxw); ); if(imgh GT maxh, calc(imgw, round(imgw * maxh
+        / imgh)); copy(imgh, maxh); ); set(global.layer[get(caller.parent)], width=get(imgw), height=get(imgh) );
+    </action>
+    <!--  arguments: 1=htmlcode, 2=scrollbars  -->
+    <action name="add_html_code" type="Javascript">
+        <![CDATA[ var div = document.createElement("div"); // basic styles to fit into the layer size and allow scrolling: div.style.width = "100%"; div.style.height = "100%"; div.style.boxSizing = "border-box"; div.style.overflow = args[2] == "true" ? "auto" : "hidden"; // allow text selection (optional): div.style.webkitUserSelect = div.style.MozUserSelect = div.style.msUserSelect = div.style.userSelect = "text"; function stopPropagation(e){ e.stopPropagation(); } function preventDefault(e){ e.preventDefault(); } // enable browsed-based mouse-wheel and touch-scrolling support: div.addEventListener("wheel", stopPropagation, true); div.addEventListener("mousewheel", stopPropagation, true); div.addEventListener("DOMMouseScroll", stopPropagation, true); div.addEventListener("touchstart", function(event){ if(krpano.device.ios && window.innerHeight == krpano.display.htmltarget.offsetHeight){ /* avoid the iOS 'overscrolling' for fullpage viewers */ var bs = document.body.parentNode.style; bs.position="fixed"; bs.top=0; bs.left=0; bs.right=0; bs.bottom=0; } krpano.control.preventTouchEvents = false; event.stopPropagation(); }, true); div.addEventListener("touchend", function(event){ krpano.control.preventTouchEvents = true; event.stopPropagation(); }, true); div.addEventListener("gesturestart", preventDefault, true); // add the html code: div.innerHTML = args[1]; // add the div to the layer element: caller.sprite.appendChild(div); ]]>
+    </action>
+    <!--  전체화면: 상세뷰 아이프레임관련 end  -->
+    <action name="viewClick">
+        <!--  전체화면일때 iframe 아닐때 모달처리  -->
+        set(param, %2); set(param2, %3); if( get(fullscreen) == true, set(layer[closeV].visible, true);
+        set(layer[bgView].visible, true); set(param, %1); if(get(param2) == 'A',
+        iframeDetailView(%2,'/artSelectIframeView.do?idx=%2'); , ) , jsViewClick(); );
+    </action>
+    <action name="jsViewClick" type="Javascript" devices="html5">
+        <![CDATA[ var tmp = krpano.get("param"); var tmpType = krpano.get("param2"); detailView(tmp, tmpType); ]]>
+    </action>
+    <!--  제목부분   -->
+    <!--
+        <plugin name="text1"
+            url="../../plugins/textfield.swf"
+            parent="hotspot[spotTitle]"
+            align="center"
+            html=""
+            css="p{text-align:center;color:#fff;font-size:32px;text-shadow:0 1px 1px #c0c0c0,0 2px 0 #a8a7a6,0 3px 0 #8b8a89,0 4px 0px #7d7b7a,0 5px 0px #686766,0 6px 3px #5f5e5d;}"
+            keep="true"
+            background="false"
+            width="800"
+            autosize="center" />
+
+        <hotspot name="spotTitle" style="styleTitle"
+            url="../../img/66.png"
+            ath="0" atv="0"
+            rx="0.0" ry="0.0" rz="0.0"
+            depth="2250" width="640" height="100" ty="-650"
+            zorder="3" handcursor="false"
+            visible="false"
+             />
+
+         <style name="styleTitle"
+            type="text"
+            scale="1.0"
+            zorder="4"
+            distorted="true"
+            depthbuffer="true"
+            css="text-align:center;"
+            />
+         -->
+    <!--  배경 3d 오브젝트  -->
+    <!--  9전시관  -->
+    <scene name="test_uv_tex_model_obj" autoload="true">
+        <!--  화면제어 가로회전만 가능  기본값 -30 30  -->
+        <view hlookat="100" limitview="range" vlookatmin="-30" vlookatmax="30" maxpixelzoom="1.0"/>
+        <preview url="obj/8K_1.jpg"/>
+        <image>
+            <sphere url="obj/8K_1.jpg"/>
+            <depthmap url="obj/08_Re3.obj" rendermode="3dmodel" scale="100" textured="true" waitforload="true"/>
+        </image>
+        <!--  change the scene by pressing SPACE:  -->
+        <!--  <events onkeyup="if(keycode == 32, loadscene(test_uv_tex_model_pano,null,MERGE|KEEPMOVING|KEEPSCENES, BLEND(1)));" />  -->
+    </scene>
+    <!--  10전시관  -->
+    <scene name="test_uv_tex_model_obj2" autoload="true">
+        <view hlookat="100" limitview="range" vlookatmin="-30" vlookatmax="30" maxpixelzoom="1.0"/>
+        <preview url="obj/8K_2.jpg"/>
+        <image>
+            <sphere url="obj/8K_2.jpg"/>
+            <depthmap url="obj/08_Re2.obj" rendermode="3dmodel" scale="100" textured="true" waitforload="true"/>
+        </image>
+        <!--  change the scene by pressing SPACE:  -->
+        <!--  <events onkeyup="if(keycode == 32, loadscene(test_uv_tex_model_pano,null,MERGE|KEEPMOVING|KEEPSCENES, BLEND(1)));" />  -->
+    </scene>
+    <!--
+    <hotspot name="..."
+             type="image"
+             url="..."
+             keep="false"
+             visible="true" // 숨김여부
+             enabled="true" // 마우스 이벤트 받을수있도록 설정
+             handcursor="true" // 마우스 오버했을때 손모양 커서 표시여부
+             cursor="true"  // handcursor 활성되었을경우 css커서를 사용함
+             maskchildren="false"  // true일경우 부모요소 외부에있는 모든 자식요소가 잘리거나 마스킹됨.
+             zorder="" // Z 순서 0~100값
+             style=""
+             ath="0.0" // 각도
+             atv="0.0" // 각도
+             edge="center" // 핫스팟 요소의 가장자리 / 앵커 포인트
+             zoom="false" // 확대/축소 여부
+             distorted="true" // 왜곡
+             rotationorder=""  // 회전순서 정의 rx / ry / rz
+             rx="0.0" ry="0.0" rz="0.0" // x / y / z 축을 기준으로 3d 회전 distorted="true" 일때만 사용가능
+             width="" height=""
+             scale="1.0" // 요소의 크기조절
+             rotate="0.0" // 회전 단, distorted="true"일때 사용 불가
+             alpha="1.0" // 투명도
+             onover.addevent=""
+             onhover.addevent=""
+             onout.addevent=""
+             ondown.addevent=""
+             onup.addevent=""
+             onclick="" // 클릭시 이벤트
+             onloaded="" // 핫스팟 이미지로드가 완료될때 호출되는 작업
+             />
+     -->
+    <!--  입구 벽   -->
+    <hotspot name="fakewall1" scale="0.5" url="../../img/66.png" ath="157" depth="185" width="52" height="50" ty="-25"
+             bgcolor="0x777777" bgalpha="0.7" zorder="3" distorted="true" handcursor="false" depthbuffer="true"
+             capture="false" visible="true" rx="0.0" ry="113" rz="0.0"/>
+    <!--  입구 기준 우측에 있는 벽   -->
+    <hotspot name="fakewall2" scale="0.5" url="../../img/66.png" ath="128" depth="86" width="120" height="50" ty="-25"
+             bgcolor="0x777777" bgalpha="0.7" zorder="3" distorted="true" handcursor="false" depthbuffer="true"
+             capture="false" visible="true" rx="0.0" ry="-128" rz="0.0"/>
+    <hotspot name="fakewall3" scale="0.5" url="../../img/66.png" ath="87" depth="20" width="120" height="50" ty="-25"
+             bgcolor="0x777777" bgalpha="0.7" zorder="3" distorted="true" handcursor="false" depthbuffer="true"
+             capture="false" visible="true" rx="0.0" ry="-3" rz="0.0"/>
+    <!--  바닥 투명이미지로 깔기  -->
+    <hotspot name="bottomSpot1" scale="0.5" url="../../img/66.png" ath="270" depth="54" width="400" height="100" ty="0"
+             bgcolor="0x777777" bgalpha="0.7" zorder="4" distorted="true" handcursor="true" depthbuffer="true"
+             rx="-90.0" ry="0.0" rz="0.0" capture="false" onclick="clickEvent0();" path="0"/>
+    <hotspot name="bottomSpot2" scale="0.5" url="../../img/66.png" ath="180" depth="140" width="200" height="130" ty="0"
+             bgcolor="0x777777" bgalpha="0.7" zorder="4" distorted="true" handcursor="true" depthbuffer="true"
+             rx="-90.0" ry="0.0" rz="0.0" capture="false" onclick="clickEvent0();" path="0"/>
+    <style name="postImg" type="image" distorted="true" scale="0.5" zorder="4" width="100" depthbuffer="true"
+           padding="60" mergedalpha="true" css="text-align:center;"/>
+    <!--  바닥 클릭 이벤트  -->
+    <action name="clickEvent0" type="Javascript" devices="html5">
+        <![CDATA[ var h = krpano.get("view.hlookat"); var tmp = Math.floor(h%360); var otx = krpano.get("view.tx"); var otz = krpano.get("view.tz"); var tx = 30; var tz = 30; var txFlag = 0; var tzFlag = 0; if(tmp <= 25 && tmp >= -15){ tzFlag = 1; krpano.call("tween(view.tz, calc(view.tz+30),0.5,default);") }else if(tmp <= 76 && tmp >= 26){ txFlag = 1; tzFlag = 1; krpano.call("tween(view.tx, calc(view.tx+30),0.5,default);") krpano.call("tween(view.tz, calc(view.tz+30),0.5,default);") }else if(tmp <= 110 && tmp >= 76){ txFlag = 1; krpano.call("tween(view.tx, calc(view.tx+30),0.5,default);") }else if(tmp <= 159 && tmp >= 110){ txFlag = 1; tzFlag = -1; krpano.call("tween(view.tx, calc(view.tx+30),0.5,default);") krpano.call("tween(view.tz, calc(view.tz-30),0.5,default);") }else if(tmp <= 198 && tmp >= 160){ tzFlag = -1; krpano.call("tween(view.tz, calc(view.tz-30),0.5,default);") }else if(tmp <= 250 && tmp >= 199){ txFlag = -1; tzFlag = -1; krpano.call("tween(view.tx, calc(view.tx-30),0.5,default);") krpano.call("tween(view.tz, calc(view.tz-30),0.5,default);") }else if(tmp <= 299 && tmp >= 250){ txFlag = -1; krpano.call("tween(view.tx, calc(view.tx-30),0.5,default);") }else if(tmp <= 345 && tmp >= 300){ txFlag = -1; tzFlag = 1; krpano.call("tween(view.tx, calc(view.tx-30),0.5,default);") krpano.call("tween(view.tz, calc(view.tz+30),0.5,default);") }else if(tmp >= 346){ tzFlag = 1; krpano.call("tween(view.tz, calc(view.tz+30),0.5,default);") }else if(tmp <= -16 && tmp >= -60){ txFlag = -1; tzFlag = 1; krpano.call("tween(view.tx, calc(view.tx-30),0.5,default);") krpano.call("tween(view.tz, calc(view.tz+30),0.5,default);") }else if(tmp <= -60 && tmp >= -110){ txFlag = -1; krpano.call("tween(view.tx, calc(view.tx-30),0.5,default);") }else if(tmp <= -110 && tmp >= -155){ txFlag = -1; tzFlag = -1; krpano.call("tween(view.tx, calc(view.tx-30),0.5,default);") krpano.call("tween(view.tz, calc(view.tz-30),0.5,default);") }else if(tmp <= -155 && tmp >= -204){ tzFlag = -1; krpano.call("tween(view.tz, calc(view.tz-30),0.5,default);") }else if(tmp <= -205 && tmp >= -250){ txFlag = 1; tzFlag = -1; krpano.call("tween(view.tx, calc(view.tx+30),0.5,default);") krpano.call("tween(view.tz, calc(view.tz-30),0.5,default);") }else if(tmp <= -251 && tmp >= -285){ txFlag = 1; krpano.call("tween(view.tx, calc(view.tx+30),0.5,default);") }else if(tmp <= -286 && tmp >= -330){ txFlag = 1; tzFlag = 1; krpano.call("tween(view.tx, calc(view.tx+30),0.5,default);") krpano.call("tween(view.tz, calc(view.tz+30),0.5,default);") }else if(tmp <= -331){ tzFlag = 1; krpano.call("tween(view.tz, calc(view.tz+30),0.5,default);") } tx = otx + txFlag * tx; tz = otz + tzFlag * tz; escapeChk(otx,otz,tx,tz); ]]>
+    </action>
+    <!--  layer 생성  -->
+    <!--  <action name="create_layer">
+            addlayer(%1);
+            set(layer[%1].type, 'image');
+            set(layer[%1].url, %2);
+            set(layer[%1].parent, %3);
+            set(layer[%1].width, %5);
+            set(layer[%1].height, %6);
+            set(layer[%1].onclick, %4);
+        </action>   -->
+    <!--  hotspot 생성  -->
+    <action name="create_hotspot">addhotspot (%1); set(hotspot[%1].scale, 0.055); set(hotspot[%1].ath, %2);
+        set(hotspot[%1].ry, %3); set(hotspot[%1].depth, %4); set(hotspot[%1].width, %5); set(hotspot[%1].height, %6);
+        set(hotspot[%1].ty, %7); set(hotspot[%1].zorder, %8); set(hotspot[%1].url, %9); set(hotspot[%1].onclick, %10);
+        set(hotspot[%1].num, %11); set(hotspot[%1].path, %12); set(hotspot[%1].rz, 0.0); set(hotspot[%1].atv, 0);
+        set(hotspot[%1].rx, 0.0); set(hotspot[%1].handcursor, true); set(hotspot[%1].distorted, true);
+        set(hotspot[%1].visible, true); set(hotspot[%1].depthbuffer, true); set(hotspot[%1].capture, false);
+        set(hotspot[%1].roomnumber, %13);
+    </action>
+    <action name="create_text_hotspot">addhotspot(%1); set(hotspot[%1].type, 'text'); set(hotspot[%1].ath, %2);
+        set(hotspot[%1].atv, 0); set(hotspot[%1].edge, 'center'); set(hotspot[%1].depth, %4); set(hotspot[%1].width,
+        %5); set(hotspot[%1].ry, %3); set(hotspot[%1].ty, %6); set(hotspot[%1].distorted, true);
+        set(hotspot[%1].renderer, 'webgl'); set(hotspot[%1].html, %8); set(hotspot[%1].css,
+        'font-family:Georgia,verdana; font-size:1px; color:#ffffff;'); set(hotspot[%1].vcenter, false);
+        set(hotspot[%1].padding, 2); set(hotspot[%1].wordwrap, true); set(hotspot[%1].selectable, false);
+        set(hotspot[%1].bg, false); set(hotspot[%1].bgcolor, '0xFFFFFF'); set(hotspot[%1].bgalpha, 1.0);
+        set(hotspot[%1].bgborder, 0); set(hotspot[%1].bgroundedge, 0); set(hotspot[%1].bgshadow, '');
+        set(hotspot[%1].txtshadow, ''); set(hotspot[%1].mergedalpha, true); set(hotspot[%1].oversampling, 3.0);
+        set(hotspot[%1].mipmapping, false); set(hotspot[%1].onautosized, false); set(hotspot[%1].zorder, %7);
+        set(hotspot[%1].handcursor, true); set(hotspot[%1].depthbuffer, true); set(hotspot[%1].capture, false);
+        set(hotspot[%1].onclick, %9); set(hotspot[%1].roomnumber, %10); set(hotspot[%1].scale, 0.055);
+    </action>
+    <!--  그림자 핫스팟 생성  -->
+    <action name="create_shadow_hotspot">
+        addhotspot (%1); set(hotspot[%1].scale, 0.055); set(hotspot[%1].ath, %2); set(hotspot[%1].ry, %3);
+        set(hotspot[%1].depth, %4); set(hotspot[%1].width, %5); set(hotspot[%1].height, %6); set(hotspot[%1].ty, %7);
+        set(hotspot[%1].zorder, %8);
+        <!--  set(hotspot[%1].url, '../../img/tem/01_fill.png');   -->
+        set(hotspot[%1].url, '/images/template/01_fill.png'); set(hotspot[%1].rz, 0.0); set(hotspot[%1].atv, 0);
+        set(hotspot[%1].rx, 0.0); set(hotspot[%1].handcursor, false); set(hotspot[%1].distorted, true);
+        set(hotspot[%1].visible, true); set(hotspot[%1].depthbuffer, true); set(hotspot[%1].capture, false);
+    </action>
+    <!--  layer 그림자  -->
+    <action name="create_shadow_layer">addlayer(%1); set(layer[%1].type, container); set(layer[%1].parent, %2);
+        set(layer[%1].width, 100%); set(layer[%1].height, 100%); set(layer[%1].bgshadow, 10 10 10 0x000000 .5);
+    </action>
+    <!--  테스트 디테일용 함수  -->
+    <action name="testDetail" type="Javascript" devices="html5">
+        <![CDATA[ var t = krpano.get("t"); var type = krpano.get("artType"); console.log("선택된 핫스팟 넘버 : "+t); getHotspotInfo(t, type); ]]>
+    </action>
+    <!--  hotspot Click Event -->
+    <action name="hotspotClick">
+        set(control.invert,false); set(layer[infoText].visible, false); set(layer[autoViewerStop].visible, false);
+        set(t,%1); set(btnFlag,%2); set(artType,%3); testDetail(); if( get(hotspot[bottomSpot1].path) == 9 ||
+        get(hotspot[bottomSpot1].path) == 10, if(%1 == 1, if((!get(hotspot[spot1].num)) AND get(hotspot[txtspot1]) ===
+        null, if(get(btnFlag) == 1, hotspotClick(1,1); , hotspotClick(2,0); ) ,
+        <!--  set(layer[log].html, get(hotspot[spot1].num)); -->
+        if(get(toogle) == 1,
+        <!--  상세뷰 호출  -->
+        if(%3 != 'T', if(get(autoPlay) == 1, set(autoPlay,0); autoView2(0); ); viewClick(%1,%2,%3); ),
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye, calc('3.2|'+image.oy+'|-168|0|22|0|0'), 1.5,
+        default ); set(toogle,1); lookto(90,0,90,smooth(100,100,100)); if(get(autoPlay) == 1,delayedcall(autoStart, 3,
+        hotspotClick(2,0))); ); );, %1 == 2, if((!get(hotspot[spot2].num)) AND get(hotspot[txtspot2]) === null,
+        if(get(btnFlag) == 1, hotspotClick(1,1); , hotspotClick(3,0); ) , if(get(toogle) == 2, if(%3 != 'T',
+        if(get(autoPlay) == 1, set(autoPlay,0); autoView2(0); ); viewClick(%1,%2,%3); ),
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye, calc('53.5|'+image.oy+'|-185.8|0|22|0|0'),
+        1.5, default ); set(toogle,2); lookto(180,0,90,smooth(100,100,100)); if(get(autoPlay) ==
+        1,delayedcall(autoStart, 3, hotspotClick(3,0))); ); );, %1 == 3, if((!get(hotspot[spot3].num)) AND
+        get(hotspot[txtspot3]) === null, if(get(btnFlag) == 1, hotspotClick(2,1); , hotspotClick(4,0); ) ,
+        if(get(toogle) == 3, if(%3 != 'T', if(get(autoPlay) == 1, set(autoPlay,0); autoView2(0); ); viewClick(%1,%2,%3);
+        ), tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye,
+        calc('-29.5|'+image.oy+'|-185.8|0|22|0|0'), 1.5, default ); set(toogle,3); lookto(180,0,90,smooth(100,100,100));
+        if(get(autoPlay) == 1,delayedcall(autoStart, 3, hotspotClick(4,0))); ); );, %1 == 4,
+        if((!get(hotspot[spot4].num)) AND get(hotspot[txtspot4]) === null, if(get(btnFlag) == 1, hotspotClick(3,1); ,
+        hotspotClick(5,0); ) , if(get(toogle) == 4, if(%3 != 'T', if(get(autoPlay) == 1, set(autoPlay,0); autoView2(0);
+        ); viewClick(%1,%2,%3); ), tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye,
+        calc('-80|'+image.oy+'|-185.8|0|22|0|0'), 1.5, default ); set(toogle,4); lookto(180,0,90,smooth(100,100,100));
+        if(get(autoPlay) == 1,delayedcall(autoStart, 3, hotspotClick(5,0))); ); );, %1 == 5,
+        if((!get(hotspot[spot5].num)) AND get(hotspot[txtspot5]) === null, if(get(btnFlag) == 1, hotspotClick(4,1); ,
+        hotspotClick(6,0); ) , set(layer[log].html, get(hotspot[spot5].num)); if(get(toogle) == 5, if(%3 != 'T',
+        if(get(autoPlay) == 1, set(autoPlay,0); autoView2(0); ); viewClick(%1,%2,%3); ),
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye, calc('-80|'+image.oy+'|-192.4|0|22|0|0'),
+        1.5, default ); set(toogle,5); lookto(270,0,90,smooth(100,100,100)); if(get(autoPlay) ==
+        1,delayedcall(autoStart, 3, hotspotClick(6,0))); ); );, %1 == 6, if((!get(hotspot[spot6].num)) AND
+        get(hotspot[txtspot6]) === null, if(get(btnFlag) == 1, hotspotClick(5,1); , hotspotClick(7,0); ) ,
+        set(layer[log].html, get(hotspot[spot6].num)); if(get(toogle) == 6, if(%3 != 'T', if(get(autoPlay) == 1,
+        set(autoPlay,0); autoView2(0); ); viewClick(%1,%2,%3); ),
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye, calc('-80|'+image.oy+'|-138.5|0|22|0|0'),
+        1.5, default ); set(toogle,6); lookto(270,0,90,smooth(100,100,100)); if(get(autoPlay) ==
+        1,delayedcall(autoStart, 3, hotspotClick(7,0))); ); );, %1 == 7, if((!get(hotspot[spot7].num)) AND
+        get(hotspot[txtspot7]) === null, if(get(btnFlag) == 1, hotspotClick(6,1); , hotspotClick(8,0); ) ,
+        set(layer[log].html, get(hotspot[spot7].num)); if(get(toogle) == 7, if(%3 != 'T', if(get(autoPlay) == 1,
+        set(autoPlay,0); autoView2(0); ); viewClick(%1,%2,%3); ),
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye, calc('-80|'+image.oy+'|-48.4|0|22|0|0'),
+        1.5, default ); set(toogle,7); lookto(270,0,90,smooth(100,100,100)); if(get(autoPlay) ==
+        1,delayedcall(autoStart, 3, hotspotClick(8,0))); ); );, %1 == 8, if((!get(hotspot[spot8].num)) AND
+        get(hotspot[txtspot8]) === null, if(get(btnFlag) == 1, hotspotClick(7,1); , hotspotClick(9,0); ) ,
+        set(layer[log].html, get(hotspot[spot8].num)); if(get(toogle) == 8, if(%3 != 'T', if(get(autoPlay) == 1,
+        set(autoPlay,0); autoView2(0); ); viewClick(%1,%2,%3); ),
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye, calc('-80|'+image.oy+'|2.5|0|22|0|0'), 1.5,
+        default ); set(toogle,8); lookto(270,0,90,smooth(100,100,100)); if(get(autoPlay) == 1,delayedcall(autoStart, 3,
+        hotspotClick(9,0))); ); );, %1 == 9, if((!get(hotspot[spot9].num)) AND get(hotspot[txtspot9]) === null,
+        if(get(btnFlag) == 1, hotspotClick(8,1); , hotspotClick(10,0); ) , set(layer[log].html,
+        get(hotspot[spot9].num)); if(get(toogle) == 9, if(%3 != 'T', if(get(autoPlay) == 1, set(autoPlay,0);
+        autoView2(0); ); viewClick(%1,%2,%3); ), tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye,
+        calc('-80|'+image.oy+'|48.5|0|22|0|0'), 1.5, default ); set(toogle,9); lookto(270,0,90,smooth(100,100,100));
+        if(get(autoPlay) == 1,delayedcall(autoStart, 3, hotspotClick(10,0))); ); );, %1 == 10,
+        if((!get(hotspot[spot10].num)) AND get(hotspot[txtspot10]) === null, if(get(btnFlag) == 1, hotspotClick(9,1); ,
+        hotspotClick(11,0); ) , set(layer[log].html, get(hotspot[spot10].num)); if(get(toogle) == 10, if(%3 != 'T',
+        if(get(autoPlay) == 1, set(autoPlay,0); autoView2(0); ); viewClick(%1,%2,%3); ),
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye, calc('-80|'+image.oy+'|94|0|22|0|0'), 1.5,
+        default ); set(toogle,10); lookto(270,0,90,smooth(100,100,100)); if(get(autoPlay)==1, delayedcall(autoStart, 3,
+        hotspotClick(11,0))); ); );, %1 == 11, if((!get(hotspot[spot11].num)) AND get(hotspot[txtspot11]) === null,
+        if(get(btnFlag) == 1, hotspotClick(10,1); , hotspotClick(12,0); ) , set(layer[log].html,
+        get(hotspot[spot11].num)); if(get(toogle) == 11, if(%3 != 'T', if(get(autoPlay) == 1, set(autoPlay,0);
+        autoView2(0); ); viewClick(%1,%2,%3); ), tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye,
+        calc('-80|'+image.oy+'|141.4|0|22|0|0'), 1.5, default ); set(toogle,11); lookto(270,0,90,smooth(100,100,100));
+        if(get(autoPlay)==1, delayedcall(autoStart, 3, hotspotClick(12,0))); ); );, %1 == 12,
+        if((!get(hotspot[spot12].num)) AND get(hotspot[txtspot12]) === null, if(get(btnFlag) == 1, hotspotClick(11,1); ,
+        hotspotClick(13,0); ) , set(layer[log].html, get(hotspot[spot12].num)); if(get(toogle) == 12, if(%3 != 'T',
+        if(get(autoPlay) == 1, set(autoPlay,0); autoView2(0); ); viewClick(%1,%2,%3); ),
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye, calc('-80|'+image.oy+'|188.6|0|22|0|0'),
+        1.5, default ); set(toogle,12); lookto(270,0,90,smooth(100,100,100)); if(get(autoPlay)==1,
+        delayedcall(autoStart, 3, hotspotClick(13,0))); ); );, %1 == 13, if((!get(hotspot[spot13].num)) AND
+        get(hotspot[txtspot13]) === null, if(get(btnFlag) == 1, hotspotClick(12,1); , hotspotClick(14,0); ) ,
+        set(layer[log].html, get(hotspot[spot13].num)); if(get(toogle) == 13, if(%3 != 'T', if(get(autoPlay) == 1,
+        set(autoPlay,0); autoView2(0); ); viewClick(%1,%2,%3); ),
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye, calc('-22|'+image.oy+'|190|0|22|0|0'), 1.5,
+        default ); set(toogle,13); lookto(0,0,90,smooth(100,100,100)); if(get(autoPlay)==1, delayedcall(autoStart, 3,
+        hotspotClick(14,0))); ); );, %1 == 14, if((!get(hotspot[spot14].num)) AND get(hotspot[txtspot14]) === null,
+        if(get(btnFlag) == 1, hotspotClick(13,1); , hotspotClick(15,0); ) , set(layer[log].html,
+        get(hotspot[spot14].num)); if(get(toogle) == 14, if(%3 != 'T', if(get(autoPlay) == 1, set(autoPlay,0);
+        autoView2(0); ); viewClick(%1,%2,%3); ), tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye,
+        calc('-33|'+image.oy+'|189.3|0|22|0|0'), 1.5, default ); set(toogle,14); lookto(90,0,90,smooth(100,100,100));
+        if(get(autoPlay)==1, delayedcall(autoStart, 3, hotspotClick(15,0))); ); );, %1 == 15,
+        if((!get(hotspot[spot15].num)) AND get(hotspot[txtspot15]) === null, if(get(btnFlag) == 1, hotspotClick(14,1); ,
+        hotspotClick(16,0); ) , set(layer[log].html, get(hotspot[spot15].num)); if(get(toogle) == 15, if(%3 != 'T',
+        if(get(autoPlay) == 1, set(autoPlay,0); autoView2(0); ); viewClick(%1,%2,%3); ),
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye, calc('-33|'+image.oy+'|145.3|0|22|0|0'),
+        1.5, default ); set(toogle,15); lookto(90,0,90,smooth(100,100,100)); if(get(autoPlay)==1, delayedcall(autoStart,
+        3, hotspotClick(16,0))); ); );, %1 == 16, if((!get(hotspot[spot16].num)) AND get(hotspot[txtspot16]) === null,
+        if(get(btnFlag) == 1, hotspotClick(15,1); , hotspotClick(17,0); ) , set(layer[log].html,
+        get(hotspot[spot16].num)); if(get(toogle) == 16, if(%3 != 'T', if(get(autoPlay) == 1, set(autoPlay,0);
+        autoView2(0); ); viewClick(%1,%2,%3); ), tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye,
+        calc('-33|'+image.oy+'|100|0|22|0|0'), 1.5, default ); set(toogle,16); lookto(90,0,90,smooth(100,100,100));
+        if(get(autoPlay)==1, delayedcall(autoStart, 3, hotspotClick(17,0))); ); );, %1 == 17,
+        if((!get(hotspot[spot17].num)) AND get(hotspot[txtspot17]) === null, if(get(btnFlag) == 1, hotspotClick(16,1); ,
+        hotspotClick(18,0); ) , set(layer[log].html, get(hotspot[spot17].num)); if(get(toogle) == 17, if(%3 != 'T',
+        if(get(autoPlay) == 1, set(autoPlay,0); autoView2(0); ); viewClick(%1,%2,%3); ),
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye, calc('-33|'+image.oy+'|20|0|22|0|0'), 1.5,
+        default ); set(toogle,17); lookto(90,0,90,smooth(100,100,100)); if(get(autoPlay)==1, delayedcall(autoStart, 3,
+        hotspotClick(18,0))); ); );, %1 == 18, if((!get(hotspot[spot18].num)) AND get(hotspot[txtspot18]) === null,
+        if(get(btnFlag) == 1, hotspotClick(17,1); , hotspotClick(19,0); ) , set(layer[log].html,
+        get(hotspot[spot18].num)); if(get(toogle) == 18, if(%3 != 'T', if(get(autoPlay) == 1, set(autoPlay,0);
+        autoView2(0); ); viewClick(%1,%2,%3); ), tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye,
+        calc('-33|'+image.oy+'|-25.1|0|22|0|0'), 1.5, default ); set(toogle,18); lookto(90,0,90,smooth(100,100,100));
+        if(get(autoPlay)==1, delayedcall(autoStart, 3, hotspotClick(19,0))); ); );, %1 == 19,
+        if((!get(hotspot[spot19].num)) AND get(hotspot[txtspot19]) === null, if(get(btnFlag) == 1, hotspotClick(18,1); ,
+        hotspotClick(20,0); ) , set(layer[log].html, get(hotspot[spot19].num)); if(get(toogle) == 19, if(%3 != 'T',
+        if(get(autoPlay) == 1, set(autoPlay,0); autoView2(0); ); viewClick(%1,%2,%3); ),
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye, calc('41.3|'+image.oy+'|-96|0|22|0|0'), 1.5,
+        default ); set(toogle,19); lookto(0,0,90,smooth(100,100,100)); if(get(autoPlay)==1, delayedcall(autoStart, 3,
+        hotspotClick(20,0))); ); );, %1 == 20, if((!get(hotspot[spot20].num)) AND get(hotspot[txtspot20]) === null,
+        if(get(btnFlag) == 1, hotspotClick(19,1); , hotspotClick(21,0); ) , set(layer[log].html,
+        get(hotspot[spot20].num)); if(get(toogle) == 20, if(%3 != 'T', if(get(autoPlay) == 1, set(autoPlay,0);
+        autoView2(0); ); viewClick(%1,%2,%3); ), tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye,
+        calc('88|'+image.oy+'|-96|0|22|0|0'), 1.5, default ); set(toogle,20); lookto(0,0,90,smooth(100,100,100));
+        if(get(autoPlay)==1, delayedcall(autoStart, 3, hotspotClick(21,0))); ); );, %1 == 21,
+        if((!get(hotspot[spot21].num)) AND get(hotspot[txtspot21]) === null, if(get(btnFlag) == 1, hotspotClick(20,1); ,
+        resetview(); ) , set(layer[log].html, get(hotspot[spot21].num)); if(get(toogle) == 21, if(%3 != 'T',
+        if(get(autoPlay) == 1, set(autoPlay,0); autoView2(0); ); viewClick(%1,%2,%3); ),
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye, calc('75|'+image.oy+'|-111.4|0|22|0|0'),
+        1.5, default ); set(toogle,21); lookto(90,0,90,smooth(100,100,100)); if(get(autoPlay)==1, delayedcall(autoStart,
+        5, resetview())); ); ); ); ); if(get(autoPlay)==0, set(layer[autoViewerStop].visible, false);
+        set(layer[btnPre].visible, true); set(layer[btnNext].visible, true); , set(layer[autoViewerStop].visible, true);
+        set(layer[btnPre].visible, false); set(layer[btnNext].visible, false); );
+    </action>
+    <action name="autoView2">
+        if(%1 == 1, set(layer[autoViewer].visible, false); set(layer[resetview].visible, false);
+        set(layer[btnPre].visible,false); set(layer[btnNext].visible,false); set(autoPlay,1); if(get(toogle)==0,
+        hotspotClick(1); , hotspotClick(int(get(toogle))+1); ); if(get(toogle)==20, delayedcall(autoStart, 3,
+        resetview()); ); , stopdelayedcall(autoStart); set(layer[autoViewer].visible, true);
+        set(layer[autoViewerStop].visible, false); set(layer[resetview].visible, true); set(layer[btnPre].visible,true);
+        set(layer[btnNext].visible,true); set(autoPlay,0);
+        <!--  if(get(toogle)==22,
+                        delayedcall(autoStart, 3, resetview());
+                    );  -->
+        );
+    </action>
+    <!--
+
+    <layer name="..."
+           type="image"
+           url="..."
+           keep="false"
+           parent=""
+           visible="true"
+           enabled="true"
+           handcursor="true"
+           maskchildren="false"
+           scalechildren="false"
+           zorder=""
+           style=""
+           align=""
+           edge=""
+           x=""
+           y=""
+           rotate="0.0"
+           width=""
+           height=""
+           scale="1.0"
+           alpha="1.0"
+           crop=""
+           onovercrop=""
+           ondowncrop=""
+           bgcolor="0x000000"
+           bgalpha="0.0"
+           bgborder="0"
+           bgroundedge="0"
+           bgshadow=""
+           bgcapture="false"
+           onover.addevent=""
+           onhover.addevent=""
+           onout.addevent=""
+           onclick.addevent=""
+           ondown.addevent=""
+           onup.addevent=""
+           onloaded.addevent=""
+           />
+
+     -->
+    <!--  레이어  -->
+    <layer name="infoText" url="" type="image" align="center" visible="false" safearea="true" scalechildren="true"
+           onclick="set(visible,false);"/>
+    <!--  <style name="mainTextStyle"
+            type="text"
+            css="color:#fff;font-size:14px;"
+            bg="false"
+            enabled="false" />
+         -->
+    <style name="info" type="text"
+           css="color:#fff;text-align:center;font-size:14pt;border-bottom: 1px solid #e9ecef !important;"/>
+    <style name="info2" type="text"
+           css="color:#000;text-align:center;font-size:14pt;border-bottom: 1px solid #e9ecef !important;"/>
+    <style name="infoTxt" type="text" css="color:#fff;text-align:center;font-size:30pt; margin:auto;"/>
+    <style name="authorStyle" type="text" css="color:#fff;text-align:center;font-size:20pt;"/>
+    <style name="introIconTxtStyle" type="text" css="color:#fff;text-align:center;font-size:12pt;"/>
+    <style name="button" type="text" css="text-align:center;" padding="4 8" mergedalpha="false" bgborder="0 0xFFFFFF 1"
+           bgroundedge="1" bgshadow="0 1 4 0x000000 1.0" ondown="set(bgcolor, 0xDDDDDD);"
+           onup="set(bgcolor, 0xFFFFFF);"/>
+    <!--  <layer name="mainText"
+            visible="false"
+            style="mainTextStyle"
+            keep="true"
+            width="630"
+            height="40"
+            align="bottom"
+            x="0"
+            y="20"
+            html="※ 원활한 관람을 위해 인터넷 익스플로러가 아닌 다른 브라우저(크롬, 엣지, 파이어폭스 등) 이용을 권장드립니다."
+            />  -->
+    <!--  	<layer name="log" style="info2" visible="true" keep="true" html="로그확인" width="200" height="50" align="leftbottom" x="10" y="10" />
+      -->
+    <!--  입장대기 화면  -->
+    <layer name="introView" visible="false" html="전시관 입장하기" style="info" bgalpha="0" width="150" height="40" y="130"
+           align="center" onclick="resetview();"/>
+    <!--  입장대기 화면  -->
+    <layer name="introTitle" visible="false" style="infoTxt" bgalpha="0" width="90%" autoheight="auto" wordwrap="true"
+           y="-140" align="center"/>
+    <!--  입장대기 화면  -->
+    <layer name="authorName" visible="false" html="작가명" style="authorStyle" bgalpha="0" width="100%" height="40" y="-30"
+           align="center"/>
+    <!--  입장대기 화면  -->
+    <layer name="introIcon" visible="false" url="/images/client/common/exhibition.png" bgalpha="0" width="39"
+           height="44" y="70" align="centerbottom"/>
+    <layer name="introIconTxt" visible="false" html="어디서든 온라인으로 만나는 위드스페이스" style="introIconTxtStyle" bgalpha="0"
+           width="100%" height="40" y="10" align="centerbottom"/>
+    <!--  초기화  -->
+    <layer name="logo" url="../../img/ctlIcon/logo.svg" visible="false" keep="true" html="로고" width="24" height="prop"
+           align="lefttop" x="20" y="20" onclick="backToMain();"/>
+    <layer name="tipInfo" url="../../img/ctlIcon/i-tip-info.svg" visible="false" keep="true" html="이용팁보기" width="32"
+           height="32" align="righttop" x="19" y="13" onclick="tipViewOpen();"/>
+    <layer name="bgmOn" url="../../img/ctlIcon/i-volume-up.svg" visible="true" keep="true" html="bgm켜기" width="32"
+           height="32" align="righttop" x="60" y="13" onclick="soundStop();"/>
+    <layer name="bgmOff" url="../../img/ctlIcon/i-volume-off.svg" visible="true" keep="true" html="음소거" width="32"
+           height="32" align="righttop" x="60" y="13" onclick="soundStart();"/>
+    <layer name="autoViewer" url="../../img/ctlIcon/i-play.svg" visible="false" keep="true" html="자동관람" width="40"
+           height="40" align="bottom" x="-40" y="24" onclick="autoView2(1);"/>
+    <layer name="autoViewerStop" url="../../img/ctlIcon/i-stop.svg" visible="false" keep="true" html="관람종료" width="40"
+           height="40" align="bottom" x="0" y="24" onclick="autoView2(0);"/>
+    <layer name="resetview" url="../../img/ctlIcon/i-replay.svg" visible="false" keep="true" html="처음으로" width="40"
+           height="40" align="bottom" x="34" y="23" onclick="resetview();"/>
+    <layer name="btnPre" url="../../img/ctlIcon/i-skip-previous.svg" visible="false" keep="true" html="이전작품" width="40"
+           height="40" align="bottom" x="-110" y="24" onclick="hotspotClick(get(toogle)-1, 1);"/>
+    <layer name="btnNext" url="../../img/ctlIcon/i-skip-next.svg" visible="false" keep="true" html="다음작품" width="40"
+           height="40" align="bottom" x="100" y="24" onclick="hotspotClick(int(get(toogle))+1, 0);"/>
+    <!--  배경화면  -->
+    <layer name="bgView" visible="false" type="image" url="../../img/bg.png" width="100%" height="100%"
+           onclick="tipViewClose();"/>
+    <!--  tip  -->
+    <layer name="tipView" visible="false" type="image" align="center" url="../../img/chMark.png" y="100"
+           onclick="tipViewClose();"/>
+    <action name="backToMain" type="Javascript" devices="html5">location.href = "https://withspace.com/";</action>
+    <action name="soundStart">set(layer[bgmOn].visible, true); set(layer[bgmOff].visible, false); audioPlay();</action>
+    <action name="soundStop">set(layer[bgmOn].visible, false); set(layer[bgmOff].visible, true); audioPause();</action>
+    <action name="audioPlay" type="Javascript" devices="html5">
+        <![CDATA[ audioPlay(); ]]>
+    </action>
+    <action name="audioPause" type="Javascript" devices="html5">
+        <![CDATA[ audioPause(); ]]>
+    </action>
+    <!--  tip닫기  -->
+    <action name="tipViewClose">set(tip,1); set(layer[tipView].visible, false); set(layer[bgView].visible, false);
+        set(layer[resetview].visible, true); set(layer[fullscreen].visible, true); set(layer[autoViewer].visible, true);
+        set(layer[tipInfo].visible, true);
+    </action>
+    <!--  tip열기  -->
+    <action name="tipViewOpen">set(layer[tipView].visible, true); set(layer[bgView].visible, true);
+        set(layer[tipInfo].visible, false);
+    </action>
+    <!--  아이프레임 상세뷰 닫기버튼   -->
+    <layer name="closeV" url="../../img/ctlIcon/cancel_black.svg" visible="false" keep="true" html="닫 기" width="42"
+           height="42" align="topright" y="32" x="32" onclick="closeView();"/>
+    <action name="closeView">removelayer(ly1, removechildren); set(layer[closeV].visible, false);
+        set(layer[bgView].visible, false); popup_close();
+    </action>
+    <layer name="fullscreen" url="../../img/fullscreen.png" visible="false" keep="true" width="40" height="40"
+           align="rightbottom" x="20" y="20" onclick="fullScreenAction(1);"/>
+    <layer name="zoom" url="../../img/zoom.png" visible="false" keep="true" width="40" height="40" align="rightbottom"
+           x="20" y="20" onclick="fullScreenAction(2);"/>
+    <action name="fullScreenAction">if(%1==1, set(fullscreen,true); set(layer[fullscreen].visible, false);
+        set(layer[zoom].visible, true); , set(fullscreen,false); set(layer[fullscreen].visible, true);
+        set(layer[zoom].visible, false); );
+    </action>
+    <!--  관람 시작위치  -->
+    <action name="resetview">
+        set(layer[autoViewerStop].visible, false); set(layer[introView].visible, false); set(layer[mainText].visible,
+        false); set(hotspot[spotTitle].visible, true); set(layer[infoText].visible,false);
+        set(layer[introTitle].visible,false); set(layer[authorName].visible, false); set(layer[introIcon].visible,
+        false); set(layer[introIconTxt].visible, false); set(control.invert,false);
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye,
+        <!--  calc(''+image.ox+'|'+image.oy+'|'+image.oz+'|0|300|200|0'),
+                    3.5,  -->
+        calc(''+image.ox+'|'+image.oy+'|-1660|0|220|0|0'), 3.5, default );
+        <!--  전시물 활성  -->
+        delayedcall(autoStart, 0.4, loadHoptspot()); lookto(90,0,90,smooth(100,100,100));
+        set(hotspot[hsVideo].visible,true); set(hotspot[v3d].visible,true); set(layer[infoText].visible,false);
+        set(layer[btnPre].visible, false); set(layer[btnNext].visible, false); set(toogle,0);
+        if(get(tip)==0,set(layer[tipView].visible, true);); if(get(tip)!=0, set(layer[autoViewer].visible, true);
+        set(layer[resetview].visible, true); set(autoplay, 0); );
+    </action>
+    <action name="resetview2">
+        set(layer[autoViewerStop].visible, false); set(layer[introView].visible, false); set(layer[mainText].visible,
+        false); set(hotspot[spotTitle].visible, true); set(layer[infoText].visible,false);
+        set(layer[introTitle].visible,false); set(layer[authorName].visible, false); set(layer[introIcon].visible,
+        false); set(layer[introIconTxt].visible, false); set(control.invert,false);
+        tween(view.tx|view.ty|view.tz|view.ox|view.oy|view.oz|view.fisheye,
+        <!--  calc(''+image.ox+'|'+image.oy+'|'+image.oz+'|0|300|200|0'),
+                    3.5,  -->
+        calc(''+image.ox+'|'+image.oy+'|-166|0|22|0|0'), 3.5, default );
+        <!--  전시물 활성  -->
+        delayedcall(autoStart, 0.4, loadHoptspot()); lookto(90,0,90,smooth(100,100,100));
+        set(hotspot[hsVideo].visible,true); set(hotspot[v3d].visible,true); set(layer[infoText].visible,false);
+        set(layer[btnPre].visible, false); set(layer[btnNext].visible, false); set(toogle,0); if(get(tip)==0,
+        set(layer[tipView].visible, true); set(layer[bgView].visible, true); ); if(get(tip)!=0,
+        set(layer[autoViewer].visible, true); set(layer[resetview].visible, true); set(autoplay, 0); );
+    </action>
+    <action name="loadHoptspot">set(hotspot[spot1].visible,true); set(hotspot[spot2].visible,true);
+        set(hotspot[spot3].visible,true); set(hotspot[spot4].visible,true); set(hotspot[spot5].visible,true);
+        set(hotspot[spot6].visible,true); set(hotspot[spot7].visible,true); set(hotspot[spot8].visible,true);
+        set(hotspot[spot9].visible,true); set(hotspot[spot10].visible,true); set(hotspot[spot11].visible,true);
+        set(hotspot[spot12].visible,true); set(hotspot[spot13].visible,true); set(hotspot[spot14].visible,true);
+        set(hotspot[spot15].visible,true); set(hotspot[spot16].visible,true); set(hotspot[spot17].visible,true);
+        set(hotspot[spot18].visible,true); set(hotspot[spot19].visible,true); set(hotspot[spot20].visible,true);
+    </action>
+    <!--  text 플러그인 -->
+    <action name="create_text_view">addplugin(%1); set(plugin[%1].parent, %2); set(plugin[%1].width, 100%);
+        set(plugin[%1].html, %3); set(plugin[%1].css, %4); set(plugin[%1].keep, true); set(plugin[%1].background,
+        false); set(plugin[%1].capture, false); set(plugin[%1].url, ../../plugins/textfield.swf); set(%2.scale, 0.5);
+    </action>
+    <!--  좌표값 확인 (개발용)  -->
+    <events name="ShowViewInHtml" keep="true" onviewchange="DoNumbers();"/>
+    <action name="DoNumbers" type="Javascript" devices="html5">var h = krpano.get("view.hlookat"); var v =
+        krpano.get("view.vlookat"); var f = krpano.get("view.fov"); var tz = krpano.get("view.tz"); var tx =
+        krpano.get("view.tx"); document.getElementById("showhlookat").innerHTML = "Hlookat ="+ Math.floor(h%360);
+        document.getElementById("showvlookat").innerHTML = "Vlookat ="+ v; document.getElementById("showfov").innerHTML
+        = "FOV ="+ f; document.getElementById("tz").innerHTML = "tz ="+ tz; document.getElementById("tx").innerHTML =
+        "tx ="+ tx; setPriority_newType20(); if(krpano.get("fullscreen")){ krpano.set(layer[fullscreen].visible, false);
+        krpano.set(layer[zoom].visible, true); }else { krpano.set(layer[fullscreen].visible, true);
+        krpano.set(layer[zoom].visible, false); }
+    </action>
+</krpano>

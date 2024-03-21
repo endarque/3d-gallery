@@ -1,0 +1,75 @@
+﻿<krpano>
+<!-- startup action - load the first scene -->
+	<action name="actionADHS" autorun="onstart">
+		set(hidden_hs, false);
+	</action>
+	
+<!-- ///////////////////////////      Всплывающий хотспот   ////////////////////////////// -->
+	<!-- flyoutSM(); -->
+	<action name="flyoutSM"> 
+		if(hotspot[get(name)].flStSM,, 
+			set(hotspot[get(name)].flStSM,in);
+			set(hotspot[get(name)].capture,false);
+			<!-- set(hotspot[get(name)].onclick, flyoutSM()); -->
+			set(hotspot[get(name)].distorted,true);
+			set(hotspot[get(name)].backup_state,);
+			set(hotspot[get(name)].backup_zorder,);
+			set(hotspot[get(name)].flying, 0);
+		);
+		flyoutSM2();
+	</action>
+	<!-- flyout hotspot actions -->
+	<action name="flyoutSM2">
+ 		for(set(i,0), i LT hotspot.count, inc(i),
+				copy(hs, hotspot[get(i)]);
+				if(hs.name != name AND hs.flStSM !== '0' AND (hs.flStSM == 'out' OR hs.flStSM == 'flyingout'),	callwith(hs, flyoutSM2() ); );
+		    );
+		if(flStSM == 'flyingout',	set(flStSM, 'flyingin');
+														,
+														if(flStSM == 'flyingin',	set(flStSM, 'flyingout');	  );
+		  );
+		if(flStSM == 'in',	calc(backup_state, '0.0|' + rx + '|' + ry + '|' + rz + '|' + scale + '|' + ox + '|' + oy);
+											copy(backup_zorder, zorder);
+											set(flStSM, 'flyingout');
+		  );
+		if(flStSM == 'out',	set(flStSM, 'flyingin');  );
+		if(flStSM == 'flyingout',	set(zorder, 99);
+														tween(flying|rx|ry|rz|scale|ox|oy, '1.0|0.0|0.0|0.0|1.0|0|0', 0.5, default, set(flStSM,'out'); set(capture,true); );
+		  );
+		if(flStSM == 'flyingin',	sub(zorder,1);
+														set(capture,false);
+														tween(flying|rx|ry|rz|scale|ox|oy, get(backup_state), 0.5, default, set(flStSM,'in'); copy(zorder,backup_zorder); );
+		  );
+	</action>
+	
+	<!-- ///////////////////////////      Показать/спрятать все хотспоты   ////////////////////////////// -->
+	<action name="HideShowHotspot" scope="local" >
+		switch(hidden_hs); 
+        for(set(i,0), i LT hotspot.count, inc(i), 
+			copy(hs, global.hotspot[get(i)]);
+			if(hs.adhs, 		
+				if(hidden_hs, 
+					copy(hs.visible2_temp, hs.visible);
+					copy(hs.enabled2_temp, hs.enabled);												
+					set(hs.visible,false);
+					set(hs.enabled,false);										
+					,
+					if(hs.scene_el == scene[get(xml.scene)].name, 
+						copy(hs.visible, hs.visible2_temp); 
+						copy(hs.enabled, hs.enabled2_temp); 
+					);
+				);
+			);
+        );
+	</action>
+	
+	
+
+
+	
+	
+	
+
+	
+	
+</krpano>

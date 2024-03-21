@@ -1,0 +1,46 @@
+<krpano version="1.21" title="artbonbon VR Gallery">
+
+    <include url="../../gallery_components/plugins/add_hotspot/plugins_l/add_hotspot.xml"/>
+	<include url="../../gallery_components/plugins/popup.xml"/>
+    <include url="../../gallery_components/plugins/common.xml"/>
+    <plugin name="soundinterface" url="plugins/soundinterface.js" preload="true"/>
+
+    <action name="startup" autorun="onstart">
+        <!-- krpano 가 시작되면 바로 scene을 로드 -->
+        if(startscene === null || !scene[get(startscene)], copy(startscene,scene[0].name); );
+        loadscene(get(startscene), null, MERGE);
+    </action>
+
+    <!-- 회전값 설정 -->
+    <autorotate enabled="false" waittime="3" speed="3" horizon="0.0" tofov="360"/>
+
+    <!-- *** add hotspt *** -->
+	<editor_hs pin="off" />
+    <plugin name="soundinterface" url="plugins/soundinterface.js" preload="true"/>
+
+<scene name="artbonbon_vrGallery" title="" onstart="" thumburl="" lat="" lng="" heading="">
+        <include url="../../gallery_components/plugins/buttons.xml"/>
+        <include url="../../gallery_components/plugins/intro.xml"/>
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="110" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              vlookatmin="0" vlookatmax="0" limitview="lookat"/>
+        <image>
+            <cube url="../../gallery_components/panos/theme_002/pano_%s.jpg"/>
+        </image>
+        <addhs_settings video_close_click="false" youtube_close_click="false" keyboard_activation_of_the_editor="true"/>
+        <hotspot name="hotspot_1" style="hs_style_1"
+                 url="../../gallery_components/common/placeholder.jpg"
+                 ath="0" atv="0" rx="0" ry="0" rz="0" ox="0" oy="-20" img_name="아트봉봉 갤러리"
+                 />
+		<layer name="my_hotspot_shadow_1" parent="hotspot[hotspot_1]" style="layer_style_shadow" />
+        <hotspot name="hotspot_2" style="hs_style_1"
+                 url="../../gallery_components/common/placeholder.jpg"
+                 ath="0" atv="0" rx="0" ry="0" rz="0" ox="-210" oy="-20" img_name="아트봉봉 갤러리"
+                 />
+		<layer name="my_hotspot_shadow_2" parent="hotspot[hotspot_2]" style="layer_style_shadow" />
+        <hotspot name="hotspot_3" style="hs_style_1"
+                 url="../../gallery_components/common/placeholder.jpg"
+                 ath="0" atv="0" rx="0" ry="0" rz="0" ox="210" oy="-20" img_name="아트봉봉 갤러리"
+                 />
+		<layer name="my_hotspot_shadow_3" parent="hotspot[hotspot_3]" style="layer_style_shadow" />
+    </scene>
+</krpano>

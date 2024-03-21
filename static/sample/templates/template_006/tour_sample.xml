@@ -1,0 +1,65 @@
+<krpano version="1.21" title="artbonbon VR Gallery">
+
+    <include url="../../gallery_components/plugins/add_hotspot/plugins_l/add_hotspot.xml?nocache=%$random%"/>
+	<include url="../../gallery_components/plugins/popup.xml?nocache=%$random%"/>
+    <include url="../../gallery_components/plugins/common.xml?nocache=%$random%"/>
+    <plugin name="soundinterface" url="plugins/soundinterface.js?nocache=%$random%" preload="true"/>
+
+    <action name="startup" autorun="onstart">
+        <!-- krpano 가 시작되면 바로 scene을 로드 -->
+        if(startscene === null || !scene[get(startscene)], copy(startscene,scene[0].name); );
+        loadscene(get(startscene), null, MERGE);
+    </action>
+
+    <!-- 회전값 설정 -->
+    <autorotate enabled="false" waittime="3" speed="3" horizon="0.0" tofov="360"/>
+
+    <!-- *** add hotspt *** -->
+	<editor_hs pin="off" />
+
+<scene name="artbonbon_vrGallery" title="" onstart="" thumburl="" lat="" lng="" heading="">
+        <include url="../../gallery_components/plugins/buttons.xml?nocache=%$random%"/>
+        <view hlookat="0.0" vlookat="-70.0" fovtype="MFOV" fov="130" minpixelzoom="0.2" maxpixelzoom="2.0" fovmin="30" fovmax="130"
+              vlookatmin="-40" vlookatmax="-70" limitview="lookat"/>
+        <image>
+            <cube url="../../gallery_components/panos/theme_005/pano_%s.jpg"/>
+        </image>
+        <addhs_settings video_close_click="false" youtube_close_click="false" keyboard_activation_of_the_editor="true"/>
+        <hotspot name="hotspot_1" style="hs_style_1"
+                 url="../../gallery_components/common/placeholder.jpg?nocache=%$random%"
+                 ath="0" atv="-90" rx="0" ry="0" rz="0" ox="0" oy="-20" img_name="이미지 1"
+                 onclick="if(get(img_name)  popup('iframe', 'url', 1200, 900, false);"
+                 />
+        <layer name="my_hotspot_shadow_1" parent="hotspot[hotspot_1]" style="layer_style_shadow" />
+        <hotspot name="hotspot_2" style="hs_style_1"
+                 url="../../gallery_components/common/placeholder.jpg?nocache=%$random%"
+                 ath="0" atv="-90" rx="0" ry="0" rz="0" ox="-210" oy="-20" img_name="이미지 2"
+                 onclick="popup('iframe', 'url', 1200, 900, false);"
+                 />
+        <layer name="my_hotspot_shadow_2" parent="hotspot[hotspot_2]" style="layer_style_shadow" />
+        <hotspot name="hotspot_3" style="hs_style_1"
+                 url="../../gallery_components/common/placeholder.jpg?nocache=%$random%"
+                 ath="0" atv="-90" rx="0" ry="0" rz="0" ox="210" oy="-20" img_name="이미지 3"
+                 onclick="popup('iframe', 'url', 1200, 900, false);"
+                 />
+        <layer name="my_hotspot_shadow_3" parent="hotspot[hotspot_3]" style="layer_style_shadow" />
+        <hotspot name="hotspot_4" style="hs_style_1"
+                 url="../../gallery_components/common/placeholder.jpg?nocache=%$random%"
+                 ath="0" atv="-90" rx="0" ry="0" rz="0" ox="0" oy="180" img_name="이미지 4"
+                 onclick="popup('iframe', 'url', 1200, 900, false);"
+                 />
+        <layer name="my_hotspot_shadow_4" parent="hotspot[hotspot_4]" style="layer_style_shadow" />
+        <hotspot name="hotspot_5" style="hs_style_1"
+                 url="../../gallery_components/common/placeholder.jpg?nocache=%$random%"
+                 ath="0" atv="-90" rx="0" ry="0" rz="0" ox="-210" oy="180" img_name="이미지 5"
+                 onclick="popup('iframe', 'url', 1200, 900, false);"
+                 />
+        <layer name="my_hotspot_shadow_5" parent="hotspot[hotspot_5]" style="layer_style_shadow" />
+        <hotspot name="hotspot_6" style="hs_style_1"
+                 url="../../gallery_components/common/placeholder.jpg?nocache=%$random%"
+                 ath="0" atv="-90" rx="0" ry="0" rz="0" ox="210" oy="180" img_name="이미지 6"
+                 onclick="popup('iframe', 'url', 1200, 900, false);"
+                 />
+        <layer name="my_hotspot_shadow_6" parent="hotspot[hotspot_6]" style="layer_style_shadow" />
+    </scene>
+</krpano>

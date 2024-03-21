@@ -1,0 +1,49 @@
+<a href="#test" class="scrollToTop"></a>
+<style>
+    .scrollToTop{
+        width:60px;
+        height: 60px;
+        border-radius:30px;
+        background-image: url('static/images/arrow.svg');
+        position:fixed;
+        right:30px;
+        bottom:30px;
+        display:none;
+        z-index:100000;
+    }
+    /*scroll bar styling*/
+
+    ::-webkit-scrollbar-track {
+        background-color: #515252;
+    }
+
+    ::-webkit-scrollbar {
+        width: 7px;
+        background-color: #ffc107;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #ffc107;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        box-shadow: inset 0 0 100px 20px #ffc107;
+    }
+
+</style>
+<script>
+$(document).ready(function() {
+    $(window).scroll(function(){
+        if ($(this).scrollTop() > 100) {
+            $('.scrollToTop').fadeIn();
+        } else {
+            $('.scrollToTop').fadeOut();
+        }
+    });
+
+    $('.scrollToTop').click(function(){
+        $('html, body').animate({scrollTop : 0}, 800);
+        return false;
+    });
+});
+</script>

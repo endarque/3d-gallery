@@ -1,0 +1,72 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1,user-scalable=no">
+
+    <link rel="stylesheet" href="/static/resource/rental/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/resource/rental/css/animate.min.css">
+    <link rel="stylesheet" href="/static/resource/rental/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/resource/rental/css/cubeportfolio.min.css">
+    <link rel="stylesheet" href="/static/resource/rental/css/mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="/static/resource/rental/css/style.css">
+    <link rel="stylesheet" href="/static/resource/rental/css/artdetail.css">
+    <style>
+		html,body {overflow:hidden;height:100%;}
+    </style>
+</head>
+<body class="vr-detail">
+<div class="blockui" style="opacity:0.7;"></div>
+<div id="art_detail_wrapper" class="art-detail-wrapper" style="opacity: 1;">
+    <div class="curie_view">
+        <div class="curie_left">
+            <div id="curie_img_wrap" class="curie_img">
+                <img src="{{ img }}" alt="" class="animated-fast fadeInLeftCustom" style="visibility: visible;"></div>
+            <div class="curie_info">
+
+            </div>
+        </div>
+        <div class="curie_right" style="">
+            <div class="curie_top_btns">
+
+            </div>
+            <h2 id="curie_detail_info_title">[그림 제목]</h2>
+            <span class="info_size"></span>
+            <div id="m_curie_img_wrap" class="m_curie_img">
+                <div class="curie_img"><img
+                        src="{{ img }}"
+                        alt="" class="animated-fast fadeInLeft"></div>
+                <div class="curie_info">
+
+                </div>
+            </div>
+            <ul class="curie_view_tab">
+                <li class="on"><span class="rental-txt-tab2">그림 설명</span></li>
+            </ul>
+            <div class="view_slider">
+                <div id="art_detail_art_info" class="curie_view_info" style="display: block;"> {{ detail }}
+                </div>
+                <div id="art_detail_artist_info" class="curie_view_info"></div>
+                <div class="curie_view_info">
+                    <div style="text-align:right;">
+                        <button type="button" id="art_review_more" class="button btn-dark"
+                                style="padding: 8px 15px;display:none;">more
+                        </button>
+                    </div>
+                    <div id="art_detail_visitor" class="visitor-slider mt-3 owl-carousel"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/resource/rental/js/lib/jquery-3.3.1.min.js"></script>
+<script src="/static/resource/rental/js/lib/imagesloaded.pkgd.min.js"></script>
+<script src="/static/resource/rental/js/lib/bootstrap.min.js"></script>
+<script src="/static/resource/rental/js/lib/owl.carousel.min.js"></script>
+<script src="/static/resource/rental/js/lib/jquery.cubeportfolio.min.js"></script>
+<script src="/static/resource/rental/js/lib/mCustomScrollbar.concat.min.js"></script>
+<script src="/static/resource/rental/js/rentalservice.js"></script>
+<script src="/static/resource/rental/js/lib/panzoom.js"></script>
+<script type="text/javascript" src="/static/resource/rental/js/art_detail.js"></script>
+</body>
+</html>

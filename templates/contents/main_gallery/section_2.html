@@ -1,0 +1,95 @@
+<section id="vr_section" style="padding-bottom:30px;background: #0f0c29;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+">
+
+    <link href="{{ url_for('static', filename='css/vr_section.css') }}" rel="stylesheet">
+    <div class="section-header">
+        <h2 class="section-title text-center wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">3D GALLERY</h2>
+        <p class="text-center wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">아이들의 작품을 감상하세요</p>
+    </div>
+
+    <div class="center_box">
+        <div class="grp-events">
+            <div class="grp-exhi-box animate__animated animate__fadeIn" style="animation-delay:0.2s">
+                <div class="grp-thumb" style="background-image:url(/static/images/land/land_3.png);">
+                    <a href="javascript:void(0);" onclick="moveToVr('{{key_1}}');" id="{{key_1}}">
+                        <div class="grp-exhi-info">
+                            <p class="grp-exhi-title">SAMPLE GALLERY 1</p>
+                            <p class="grp-exhi-detail">SAMPLE GALLERY 1<br>2022년 3월 우수 작품을 소개합니다.<br><br>정다운 (9세) ‘웅장한 백두산 폭발‘<br></p>
+                        </div>
+                        <div class="border-box"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="grp-exhi-box animate__animated animate__fadeIn" style="animation-delay:0.2s">
+                <div class="grp-thumb" style="background-image:url(/static/images/land/land_2.png);">
+                    <a href="javascript:void(0);" onclick="moveToVr('{{key_2}}');" id="{{key_2}}">
+                        <div class="grp-exhi-info">
+                            <p class="grp-exhi-title">SAMPLE GALLERY 2</p>
+                            <p class="grp-exhi-detail">SAMPLE GALLERY 2<br>2022년 3월 우수 작품을 소개합니다.<br><br>정다운 (9세) ‘웅장한 백두산 폭발‘<br></p>
+                        </div>
+                        <div class="border-box"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="grp-exhi-box animate__animated animate__fadeIn" style="animation-delay:0.2s">
+                <div class="grp-thumb" style="background-image:url(/static/images/land/land_1.png);">
+                    <a href="javascript:void(0);" onclick="moveToVr('{{key_3}}');" id="{{key_3}}">
+                        <div class="grp-exhi-info">
+                            <p class="grp-exhi-title">SAMPLE GALLERY 3</p>
+                            <p class="grp-exhi-detail">SAMPLE GALLERY 3<br>2022년 3월 우수 작품을 소개합니다.<br><br>정다운 (9세) ‘웅장한 백두산 폭발‘<br></p>
+                        </div>
+                        <div class="border-box"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="grp-events">
+            <div class="grp-exhi-box animate__animated animate__fadeIn" style="animation-delay:0.2s">
+                <div class="grp-thumb" style="background-image:url(/static/images/land/room_01.png);">
+                    <a href="javascript:void(0);" onclick="moveToVr('{{key_4}}');" id="{{key_4}}">
+                        <div class="grp-exhi-info">
+                            <p class="grp-exhi-title">SAMPLE GALLERY 4</p>
+                            <p class="grp-exhi-detail">SAMPLE GALLERY 4<br>2022년 3월 우수 작품을 소개합니다.<br><br>정다운 (9세) ‘웅장한 백두산 폭발‘<br></p>
+                        </div>
+                        <div class="border-box"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="grp-exhi-box animate__animated animate__fadeIn" style="animation-delay:0.2s">
+                <div class="grp-thumb" style="background-image:url(/static/images/land/room_02.png);">
+                    <a href="javascript:void(0);" onclick="moveToVr('{{key_5}}');" id="{{key_5}}">
+                        <div class="grp-exhi-info">
+                            <p class="grp-exhi-title">SAMPLE GALLERY 5</p>
+                            <p class="grp-exhi-detail">SAMPLE GALLERY 5<br>2022년 3월 우수 작품을 소개합니다.<br><br>정다운 (9세) ‘웅장한 백두산 폭발‘<br></p>
+                        </div>
+                        <div class="border-box"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="grp-exhi-box animate__animated animate__fadeIn" style="animation-delay:0.2s">
+                <div class="grp-thumb" style="background-image:url(/static/images/land/room_03.png);">
+                    <a href="javascript:void(0);" onclick="moveToVr('{{key_6}}');" id="{{key_6}}">
+                        <div class="grp-exhi-info">
+                            <p class="grp-exhi-title">SAMPLE GALLERY 6</p>
+                            <p class="grp-exhi-detail">SAMPLE GALLERY 6<br>2022년 3월 우수 작품을 소개합니다.<br><br>정다운 (9세) ‘웅장한 백두산 폭발‘<br></p>
+                        </div>
+                        <div class="border-box"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+var key_1 = '{{ key_1 }}';
+var key_2 = '{{ key_2 }}';
+var key_3 = '{{ key_3 }}';
+
+function moveToVr(id) {
+    //var id = $(this).find('img').attr('id');
+    console.log(id);
+    window.open('/' + id);
+}
+</script>

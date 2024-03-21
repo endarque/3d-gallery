@@ -1,0 +1,129 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1,user-scalable=no">
+
+    <link rel="stylesheet" href="/static/resource/rental/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/resource/rental/css/animate.min.css">
+    <link rel="stylesheet" href="/static/resource/rental/css/style.css">
+    <style>
+		html,body {overflow:hidden;height:100%;}
+    </style>
+</head>
+<body class="vr-detail">
+<div class="blockui" style="opacity:0.7;"></div>
+<div id="art_detail_wrapper" class="art-detail-wrapper" style="opacity: 1;">
+    <div class="row justify-content-between mb-5" style="margin: 0 30px;">
+        <div class="col-md-12 photo_div" style="margin-top: 20px;">
+            <div class="photo_container" style="">
+                <img src="{{ img }}" style="">
+            </div>
+        </div>
+        <div class="col-12 my-5">
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="detail_div">
+                        <span class="detail_label">
+                            TITLE
+                        </span>
+                        <span class="detail_value">
+                            {{ title }}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="detail_div">
+                        <span class="detail_label">
+                            author
+                        </span>
+                        <span class="detail_value">
+                            정은호
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="detail_div">
+                        <span class="detail_label">
+                            material
+                        </span>
+                        <span class="detail_value">
+                            수채화, 디지털 아트
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-3">
+                    <div class="detail_div">
+                        <span class="detail_label">
+                            year
+                        </span>
+                        <span class="detail_value">
+                            2023
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <p> {{ detail }} </p>
+        </div>
+        <div class="col-md-6">
+            <p> {{ detail }} </p>
+        </div>
+    </div>
+</div>
+<script src="/static/resource/rental/js/lib/jquery-3.3.1.min.js"></script>
+<script src="/static/resource/rental/js/lib/bootstrap.min.js"></script>
+</body>
+<style>
+    .detail_div {
+
+    }
+
+    .detail_label {
+        display: block;
+        font-size: 11px;
+        font-weight: 1000;
+        text-transform: uppercase;
+        letter-spacing: .1rem;
+        color: black
+    }
+
+    .detail_value {
+        font-size: 16px;
+    }
+
+    .photo_div {
+        width: 100%;
+        text-align: center;
+        position: relative;
+    }
+
+    .photo_container {
+        max-width: 100%;
+        max-height: 500px;
+        margin: 24px 0 24px 0;
+        box-sizing: border-box;
+    }
+
+    .photo_container img {
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        display: inline-block;
+        box-shadow: 0px 0px 5px 5px rgb(0, 0, 0, 0.2);
+        animation: fadeInDown 1s;
+    }
+
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            transform: translate3d(0, -100%, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translateZ(0);
+        }
+    }
+</style>
+</html>

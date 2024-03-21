@@ -1,0 +1,236 @@
+<krpano version="1.21" title="artbonbon VR Gallery">
+ㄴ
+    <include url="plugins/common.xml?nocache=%$random%"/>
+
+    <action name="startup" autorun="onstart">
+        <!-- krpano 가 시작되면 바로 scene을 로드 -->
+        if(startscene === null || !scene[get(startscene)], copy(startscene,scene[0].name); );
+        loadscene(get(startscene), null, MERGE);
+    </action>
+
+    <!-- 회전값 설정 -->
+    <autorotate enabled="true" waittime="1" speed="3" horizon="0.0" tofov="360"/>
+
+    <!-- *** add hotspt *** -->
+	<editor_hs pin="off" />
+
+<scene name="artbonbon_vrGallery" title="" onstart="" thumburl="" lat="" lng="" heading="">
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="150" maxpixelzoom="1.0" fovmin="70" fovmax="140"
+              vlookatmin="0" vlookatmax="0" limitview="lookat"/>
+        <image>
+            <cube url="theme_white/pano_%s.jpg"/>
+        </image>
+        <addhs_settings video_close_click="false" youtube_close_click="false" keyboard_activation_of_the_editor="true"/>
+        <cotrol usercontrol="off"/>
+        <!-- 앞면 -->
+        <hotspot name="hotspot_1" style="hs_style_1"
+                 url="image/1.png?nocache=%$random%"
+                 ath="0" atv="0" rx="0" ry="0" rz="0" ox="0" oy="-100" img_name="이미지 1" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_1" parent="hotspot[hotspot_1]" style="layer_style_shadow" />
+        <hotspot name="hotspot_2" style="hs_style_1"
+                 url="image/2.png?nocache=%$random%"
+                 ath="0" atv="0" rx="0" ry="0" rz="0" ox="-210" oy="-100" img_name="이미지 2" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_2" parent="hotspot[hotspot_2]" style="layer_style_shadow" />
+        <hotspot name="hotspot_3" style="hs_style_1"
+                 url="image/3.png?nocache=%$random%"
+                 ath="0" atv="0" rx="0" ry="0" rz="0" ox="210" oy="-100" img_name="이미지 3" id="0"
+                 width="177" height="132"
+                 />
+        <layer name="my_hotspot_shadow_3" parent="hotspot[hotspot_3]" style="layer_style_shadow" />
+        <hotspot name="hotspot_4" style="hs_style_1"
+                 url="image/4.png?nocache=%$random%"
+                 ath="0" atv="0" rx="0" ry="0" rz="0" ox="0" oy="60" img_name="이미지 4" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_4" parent="hotspot[hotspot_4]" style="layer_style_shadow" />
+        <hotspot name="hotspot_5" style="hs_style_1"
+                 url="image/5.png?nocache=%$random%"
+                 ath="0" atv="0" rx="0" ry="0" rz="0" ox="-210" oy="60" img_name="이미지 5" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_5" parent="hotspot[hotspot_5]" style="layer_style_shadow" />
+        <hotspot name="hotspot_6" style="hs_style_1"
+                 url="image/6.png?nocache=%$random%"
+                 ath="0" atv="0" rx="0" ry="0" rz="0" ox="210" oy="60" img_name="이미지 6" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_6" parent="hotspot[hotspot_6]" style="layer_style_shadow" />
+
+        <!-- 뒷면 -->
+        <hotspot name="hotspot_7" style="hs_style_1"
+                 url="image/7.png?nocache=%$random%"
+                 ath="180" atv="0" rx="0" ry="0" rz="0" ox="0" oy="-100" img_name="이미지 7" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_7" parent="hotspot[hotspot_7]" style="layer_style_shadow" />
+        <hotspot name="hotspot_8" style="hs_style_1"
+                 url="image/8.png?nocache=%$random%"
+                 ath="180" atv="0" rx="0" ry="0" rz="0" ox="-210" oy="-100" img_name="이미지 8" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_8" parent="hotspot[hotspot_8]" style="layer_style_shadow" />
+        <hotspot name="hotspot_9" style="hs_style_1"
+                 url="image/9.png?nocache=%$random%"
+                 ath="180" atv="0" rx="0" ry="0" rz="0" ox="210" oy="-100" img_name="이미지 9" id="0"
+                 width="177" height="132"
+                 />
+        <layer name="my_hotspot_shadow_9" parent="hotspot[hotspot_9]" style="layer_style_shadow" />
+        <hotspot name="hotspot_10" style="hs_style_1"
+                 url="image/10.png?nocache=%$random%"
+                 ath="180" atv="0" rx="0" ry="0" rz="0" ox="0" oy="60" img_name="이미지 10" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_10" parent="hotspot[hotspot_10]" style="layer_style_shadow" />
+        <hotspot name="hotspot_11" style="hs_style_1"
+                 url="image/11.png?nocache=%$random%"
+                 ath="180" atv="0" rx="0" ry="0" rz="0" ox="-210" oy="60" img_name="이미지 11" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_11" parent="hotspot[hotspot_11]" style="layer_style_shadow" />
+        <hotspot name="hotspot_12" style="hs_style_1"
+                 url="image/12.png?nocache=%$random%"
+                 ath="180" atv="0" rx="0" ry="0" rz="0" ox="210" oy="60" img_name="이미지 12" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_12" parent="hotspot[hotspot_12]" style="layer_style_shadow" />
+
+        <!-- 우측면 -->
+        <hotspot name="hotspot_13" style="hs_style_1"
+                 url="image/13.png?nocache=%$random%"
+                 ath="90" atv="0" rx="0" ry="0" rz="0" ox="0" oy="-100" img_name="이미지 13" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_13" parent="hotspot[hotspot_13]" style="layer_style_shadow" />
+        <hotspot name="hotspot_14" style="hs_style_1"
+                 url="image/14.png?nocache=%$random%"
+                 ath="90" atv="0" rx="0" ry="0" rz="0" ox="-420" oy="-100" img_name="이미지 14" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_14" parent="hotspot[hotspot_14]" style="layer_style_shadow" />
+        <hotspot name="hotspot_15" style="hs_style_1"
+                 url="image/15.png?nocache=%$random%"
+                 ath="90" atv="0" rx="0" ry="0" rz="0" ox="-210" oy="-100" img_name="이미지 15" id="0"
+                 width="177" height="132"
+                 />
+        <layer name="my_hotspot_shadow_15" parent="hotspot[hotspot_15]" style="layer_style_shadow" />
+        <hotspot name="hotspot_16" style="hs_style_1"
+                 url="image/16.png?nocache=%$random%"
+                 ath="90" atv="0" rx="0" ry="0" rz="0" ox="420" oy="-100" img_name="이미지 16" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_16" parent="hotspot[hotspot_16]" style="layer_style_shadow" />
+        <hotspot name="hotspot_17" style="hs_style_1"
+                 url="image/17.png?nocache=%$random%"
+                 ath="90" atv="0" rx="0" ry="0" rz="0" ox="210" oy="-100" img_name="이미지 17" id="0"
+                 width="177" height="132"
+                 />
+        <layer name="my_hotspot_shadow_17" parent="hotspot[hotspot_17]" style="layer_style_shadow" />
+        <hotspot name="hotspot_18" style="hs_style_1"
+                 url="image/18.png?nocache=%$random%"
+                 ath="90" atv="0" rx="0" ry="0" rz="0" ox="0" oy="60" img_name="이미지 18" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_18" parent="hotspot[hotspot_18]" style="layer_style_shadow" />
+        <hotspot name="hotspot_19" style="hs_style_1"
+                 url="image/19.png?nocache=%$random%"
+                 ath="90" atv="0" rx="0" ry="0" rz="0" ox="-420" oy="60" img_name="이미지 19" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_19" parent="hotspot[hotspot_19]" style="layer_style_shadow" />
+        <hotspot name="hotspot_20" style="hs_style_1"
+                 url="image/20.png?nocache=%$random%"
+                 ath="90" atv="0" rx="0" ry="0" rz="0" ox="-210" oy="60" img_name="이미지 20" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_20" parent="hotspot[hotspot_20]" style="layer_style_shadow" />
+        <hotspot name="hotspot_21" style="hs_style_1"
+                 url="image/21.png?nocache=%$random%"
+                 ath="90" atv="0" rx="0" ry="0" rz="0" ox="210" oy="60" img_name="이미지 21" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_21" parent="hotspot[hotspot_21]" style="layer_style_shadow" />
+        <hotspot name="hotspot_22" style="hs_style_1"
+                 url="image/22.png?nocache=%$random%"
+                 ath="90" atv="0" rx="0" ry="0" rz="0" ox="420" oy="60" img_name="이미지 22" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_22" parent="hotspot[hotspot_22]" style="layer_style_shadow" />
+
+        <!-- 좌측면 -->
+        <hotspot name="hotspot_23" style="hs_style_1"
+                 url="image/23.png?nocache=%$random%"
+                 ath="-90" atv="0" rx="0" ry="0" rz="0" ox="0" oy="-100" img_name="이미지 23" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_23" parent="hotspot[hotspot_23]" style="layer_style_shadow" />
+        <hotspot name="hotspot_24" style="hs_style_1"
+                 url="image/24.png?nocache=%$random%"
+                 ath="-90" atv="0" rx="0" ry="0" rz="0" ox="-420" oy="-100" img_name="이미지 24" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_24" parent="hotspot[hotspot_24]" style="layer_style_shadow" />
+        <hotspot name="hotspot_25" style="hs_style_1"
+                 url="image/25.png?nocache=%$random%"
+                 ath="-90" atv="0" rx="0" ry="0" rz="0" ox="-210" oy="-100" img_name="이미지 25" id="0"
+                 width="177" height="132"
+                 />
+        <layer name="my_hotspot_shadow_25" parent="hotspot[hotspot_25]" style="layer_style_shadow" />
+        <hotspot name="hotspot_26" style="hs_style_1"
+                 url="image/26.png?nocache=%$random%"
+                 ath="-90" atv="0" rx="0" ry="0" rz="0" ox="420" oy="-100" img_name="이미지 26" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_26" parent="hotspot[hotspot_26]" style="layer_style_shadow" />
+        <hotspot name="hotspot_27" style="hs_style_1"
+                 url="image/27.png?nocache=%$random%"
+                 ath="-90" atv="0" rx="0" ry="0" rz="0" ox="210" oy="-100" img_name="이미지 27" id="0"
+                 width="177" height="132"
+                 />
+        <layer name="my_hotspot_shadow_27" parent="hotspot[hotspot_27]" style="layer_style_shadow" />
+        <hotspot name="hotspot_28" style="hs_style_1"
+                 url="image/28.jpg?nocache=%$random%"
+                 ath="-90" atv="0" rx="0" ry="0" rz="0" ox="0" oy="60" img_name="이미지 28" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_28" parent="hotspot[hotspot_28]" style="layer_style_shadow" />
+        <hotspot name="hotspot_29" style="hs_style_1"
+                 url="image/29.png?nocache=%$random%"
+                 ath="-90" atv="0" rx="0" ry="0" rz="0" ox="-420" oy="60" img_name="이미지 29" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_29" parent="hotspot[hotspot_29]" style="layer_style_shadow" />
+        <hotspot name="hotspot_30" style="hs_style_1"
+                 url="image/30.png?nocache=%$random%"
+                 ath="-90" atv="0" rx="0" ry="0" rz="0" ox="-210" oy="60" img_name="이미지 30" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_30" parent="hotspot[hotspot_30]" style="layer_style_shadow" />
+        <hotspot name="hotspot_31" style="hs_style_1"
+                 url="image/31.png?nocache=%$random%"
+                 ath="-90" atv="0" rx="0" ry="0" rz="0" ox="210" oy="60" img_name="이미지 31" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_31" parent="hotspot[hotspot_31]" style="layer_style_shadow" />
+        <hotspot name="hotspot_32" style="hs_style_1"
+                 url="image/32.png?nocache=%$random%"
+                 ath="-90" atv="0" rx="0" ry="0" rz="0" ox="420" oy="60" img_name="이미지 32" id="0"
+                 width="177" height="132"
+                 />
+		<layer name="my_hotspot_shadow_32" parent="hotspot[hotspot_32]" style="layer_style_shadow" />
+
+        <!-- medal layer -->
+        <layer name="medal_gold" parent="hotspot[hotspot_1]" visible="false"
+               style="layer_style_medal"
+               url="../../gallery_components/common/medal_gold.png?nocache=%$random%" />
+        <layer name="medal_silver" parent="hotspot[hotspot_2]" visible="false"
+               style="layer_style_medal"
+               url="../../gallery_components/common/medal_silver.png?nocache=%$random%" />
+        <layer name="medal_bronze" parent="hotspot[hotspot_3]" visible="false"
+               style="layer_style_medal"
+               url="../../gallery_components/common/medal_bronze.png?nocache=%$random%" />
+    </scene>
+</krpano>

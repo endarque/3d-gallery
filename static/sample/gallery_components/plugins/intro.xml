@@ -1,0 +1,105 @@
+<krpano>
+
+    <action name="tipViewClose">
+        set(layer['tipBg'].visible, false);
+        set(layer['tipHelp'].visible, false);
+        set(layer['tipImage'].visible, false);
+        set(layer['tipMove'].visible, false);
+        set(layer['tipOut'].visible, false);
+        set(layer['tipSound'].visible, false);
+        set(layer['tipZoomPC'].visible, false);
+        set(layer['tipZoomM'].visible, false);
+        stopdelayedcall('tipHelp');
+        stopdelayedcall('tipOut');
+        stopdelayedcall('tipSound');
+        stopdelayedcall('tipImage');
+        stopdelayedcall('tipMove');
+        stopdelayedcall('tipZoom');
+    </action>
+
+    <action name="tipViewOpen">
+        set(layer['tipBg'].visible, true);
+        if(get(stagewidth) GT 1499,
+            set(layer['tipMove'].x, -450);
+            set(layer['tipMove'].y, -40);
+            set(layer['tipZoomPC'].x, 450);
+            set(layer['tipZoomPC'].y, -40);
+            set(layer['tipZoomM'].x, 450);
+            set(layer['tipZoomM'].y, -50);,
+
+            set(layer['tipImage'].x, 25);
+            set(layer['tipImage'].y, 0);
+            set(layer['tipMove'].x, 25);
+            set(layer['tipMove'].y, -190);
+            set(layer['tipZoomPC'].x, 25);
+            set(layer['tipZoomPC'].y, 190);
+            set(layer['tipZoomM'].x, 25);
+            set(layer['tipZoomM'].y, 190);
+        );
+
+        if(get(stagewidth) LT 500,
+            set(layer['tipImage'].scale, 0.5);
+            set(layer['tipMove'].scale, 0.5);
+            set(layer['tipZoomPC'].scale, 0.5);
+            set(layer['tipZoomM'].scale, 0.5);
+            set(layer['tipImage'].x, 0);
+            set(layer['tipMove'].x, 0);
+            set(layer['tipMove'].y, -130);
+            set(layer['tipZoomPC'].x, 0);
+            set(layer['tipZoomPC'].y, 130);
+            set(layer['tipZoomM'].x, 0);
+            set(layer['tipZoomM'].y, 130);
+        );
+
+        if(get(stagewidth) LT 300,
+            set(layer['tipImage'].scale, 0.3);
+            set(layer['tipMove'].scale, 0.3);
+            set(layer['tipZoomPC'].scale, 0.3);
+            set(layer['tipZoomM'].scale, 0.3);
+            set(layer['tipImage'].x, 0);
+            set(layer['tipImage'].y, 0);
+            set(layer['tipMove'].x, 0);
+            set(layer['tipMove'].y, -130);
+            set(layer['tipZoomPC'].x, 0);
+            set(layer['tipZoomPC'].y, 130);
+            set(layer['tipZoomM'].x, 0);
+            set(layer['tipZoomM'].y, 130);,
+            ,
+        );
+        delayedcall('tipHelp', 0.5, set(layer['tipHelp'].visible, true));
+        delayedcall('tipSound', 0.5, set(layer['tipSound'].visible, true););
+        delayedcall('tipOut', 0.5, set(layer['tipOut'].visible, true););
+        delayedcall('tipImage', 1, set(layer['tipImage'].visible, true););
+        delayedcall('tipMove', 1, set(layer['tipMove'].visible, true););
+        delayedcall('tipZoom', 1, if(device.desktop,
+            set(layer['tipZoomPC'].visible, true);,
+            set(layer['tipZoomM'].visible, true));
+        );
+    </action>
+
+    <!--  배경화면  -->
+    <layer name="tipBg" visible="false" type="image" url="../common/intro/bg.png" width="110%" height="110%"
+           onclick="tipViewClose();" onup="tipViewClose();"/>
+
+    <!--  tip  -->
+    <layer name="tipHelp" visible="false" type="image" align="lefttop" url="../common/intro/intro_help.png" x="25" y="25"
+           scale="0.75" onclick="tipViewClose();"/>
+
+    <layer name="tipOut" visible="false" type="image" align="righttop" url="../common/intro/intro_out.png" x="20" y="28"
+           scale="0.75" onclick="tipViewClose();"/>
+
+    <layer name="tipSound" visible="false" type="image" align="righttop" url="../common/intro/intro_sound.png" x="87" y="28"
+           scale="0.75" onclick="tipViewClose();"/>
+
+    <layer name="tipImage" visible="false" type="image" align="center" url="../common/intro/intro_imageR.png" x="25" y="-40"
+           scale="0.6" onclick="tipViewClose();"/>
+
+    <layer name="tipMove" visible="false" type="image" align="center" url="../common/intro/intro_moveR.png" x="-250" y="-40"
+           scale="0.6" onclick="tipViewClose();"/>
+
+    <layer name="tipZoomPC" visible="false" type="image" align="center" url="../common/intro/intro_zoomR.png" x="250" y="-20"
+           scale="0.6" onclick="tipViewClose();"/>
+
+    <layer name="tipZoomM" visible="false" type="image" align="center" url="../common/intro/intro_zoomMR.png" x="250" y="-40"
+           scale="0.6" onclick="tipViewClose();"/>
+</krpano>

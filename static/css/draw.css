@@ -1,0 +1,109 @@
+
+.canvas {
+    width: 700px ;
+    height: 524px ;
+    background-image: url(/static/images/note.jpg);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.068);
+}
+
+.controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.controls .controls__btns {
+    display: flex;
+    padding: 2px;
+}
+
+.controls__btns button{
+    all: unset;
+    cursor: pointer;
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    margin: 2px;
+    border-radius: 20px;
+    //box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.068);
+    //border: 2px solid rgba(0, 0, 0, 0.2);
+    color:rgba(0, 0, 0, 0.8);
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 12px;
+}
+
+.controls__btns button:active {
+    transform: scale(0.98);
+}
+
+.controls .controls__colors {
+    display: flex;
+    padding: 2px;
+}
+
+.controls__colors .controls__color {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.068);
+}
+
+
+.controls .controls__range{
+}
+
+/*******************************/
+.area_header {
+    height: 85px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/*******************************/
+.post-slider{
+    border:none;
+    outline:none;
+}
+.post-slider .post-wrapper{
+    max-width:640px;
+    height:85px;
+    margin:0px auto;
+}
+.post-slider .post-wrapper .post{
+    width:93px;
+    height:84px;
+    display:inline-block;
+    background:transparent;
+    padding:2px;
+    border-radius:2px;
+}
+.prev {
+    content: "\f053";
+    width:30px; height:30px;
+    background:transparent;
+    font-weight:bold;
+    font-size:30px;
+    color:#fff;
+    text-align: center;
+}
+.next {
+    content: "\f054";
+    width:30px; height:30px;
+    background:transparent;
+    font-weight:bold;
+    font-size:30px;
+    color:#fff;
+    text-align: center;
+}
+.slide_arrow_wrapper_custom{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}

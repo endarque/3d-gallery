@@ -1,0 +1,149 @@
+<krpano>
+
+		
+	<!-- Action connection -->
+	<include url="plugin_a/actiontHS.xml"/> 
+	
+	<!-- the style pop-up text when you hover your mouse over the link . Текст при наведении мыши-->
+  
+	<textstyle name="STYLE1_LinkSM"
+	           font="Vidaloka" fontsize.no-mobile="13" fontsize.mobile="13" bold="false" italic="false" xoffset="0" yoffset="-20"
+	           background="true" backgroundcolor="0x006868" backgroundalpha="0"
+	           border="true" borderwidth="1" bordercolor="0xFFFFFF" roundedge="0"
+	           textcolor="0xFFFFFF"
+	           padding="4 5"
+	           textalign="center" textshadowrange="0"   
+				textshadow ="0"
+	           />	
+			   
+	<textstyle name="STYLE1_LinkSM2"
+	           font="Arial" fontsize.no-mobile="17" bold="false" italic="false" xoffset="0" yoffset="-20"
+	           background="true" backgroundcolor="0x006868" backgroundalpha="0.8"
+	           border="false" borderwidth="0" bordercolor="0xFFFFFF" roundedge="3"
+	           textcolor="0xFFFFFF"
+	           padding="4 5" textshadow ="3" textshadowrange="2"  
+	           textalign="center"           
+	           />
+			   
+	<!-- Стиль подписи фото -->         		   
+	<style name="tit_ph_styl_adhs" enabled="false" type="text" css="font-family:Comic Sans MS, Comic Sans, cursive, Arial; color:#FFFFFF; font-size:20px; text-align:center " 
+		    x="0" y="0"  padding="7 10" keep="true" align="top" edge="top" zorder="52" alpha="0" width="100%" 
+			background="true" backgroundcolor="0x000000" backgroundalpha="0.3"			   
+			border="false" bordercolor="0xFFFFFF" borderalpha="0" borderwidth="0"	roundedge="0"    
+			shadow="5.0"  shadowrange="3.0"  shadowangle="90"  shadowcolor="0x000000"  shadowalpha="0"
+			textshadow="0.0" textshadowrange="4.0" textshadowangle="45" textshadowcolor="0x000000" textshadowalpha="1.0"
+			wordwrap="true" 
+		  />
+			   			
+	<!-- Фон  -->
+	<style name="freim_bg_Adhs" type="container" alpha="0" keep="true" align="lefttop"  width="100%" height="100%" zorder="50" safearea="false"
+		   bgcolor="0x000000"  bgalpha="0.7" bgcapture="true" handcursor="false"  />
+		   
+	<!-- Палец громкости  -->
+	<layer name="volume_finger"  keep="true" url="picture/volume_finger.png" align="right" x="15"  y="0" scale="0.5" enabled="false" alpha="0" /> 	
+
+	<!-- Стиль хотспотов --> 
+    <!--<style	name="link_hs_sm" type="image" keep="true" width="100" height="prop" visible="false" enabled="false"  zorder="5" depth="1000"  />-->
+	
+	<style	name="link_hs_sm" type="image" keep="true" width="100" height="prop" visible="false" enabled="false" onhover="showtext(get(name_hs), STYLE1_LinkSM);"  zorder="5"
+			onloaded="" />	
+
+	<!-- Стиль текстового хотспота   add hotspot. krpano. Test Test Test Test --> 
+    <style	name="text_hs_sm" html="Text" keep="true" capture="true" visible="false" enabled="false" edge="lefttop" 
+			width="150" height="50" alpha="1" scale="1"  zorder="4" padding="5 0 0 33"
+			css="font-family:Arial; font-size:22px; color:#FFFFFF;"  txtshadow="0 0 0 0х000000 0.5"
+			bgcolor="0x777777" bgalpha="0.5"  bgborder="1 0xFFFFFF 1" bgroundedge="0 0 0 0"  bgshadow="0 0 0 0х000000 0.5"
+			vcenter="true" oversampling="2.0"
+		/>	
+
+	
+	<!-- Стиль хотспота открытия фотографии в режиме VR --> 
+    <style name="StPhotADHS" type="image" keep="true" width="0" height="prop"  zorder="5" depth="1000"  alpha="1" edge="center" 
+				VRwidth="900" onout="tween(width,0,0.5,easeinquart, removehotspot(photADHS));"  />
+
+	<!-- Стиль видео в режиме VR -->
+    <style	name="StVideoADHS" url.html5="%FIRSTXML%/plugins/videoplayer.js"  capture="true"  zorder="5" edge="center"
+			width="0" VRwidth="900" height="prop"  posterurl=""
+			onout="tween(width,0,0.5,easeinquart, removehotspot(VideoADHS));"
+			pausedonstart="false" 
+		/>
+
+	
+	<!-- ////////////////////   Buttons   ////////////////////////////// -->	 	
+	
+	<!-- Close photo button. Кнопка закрыть фотографию -->	   
+	<layer name="close6_photo"  keep="true" align="righttop" x="25"  y="22" url="picture/close.png" zorder="51" 
+	        width="20" height="prop" alpha="0" edge="center" visible="true" bgcapture="true" handcursor="true"
+	        onover="tween(width,25,0.2);" onout="tween(width,20,0.2);" onclick="delayedcall(0.3,close_photo_add_hs();); tween(alpha,0); set(enabled,false);"/>	
+	<!-- Close youtube  закрыть youtube  -->	   
+	<layer name="close8_youtube"  keep="true" align="righttop" x="23"  y="23" url="picture/close.png" zorder="51" 
+	        width="20" height="prop" alpha="0" edge="center" visible="true" bgcapture="true" handcursor="true"
+	        onover="tween(width,25,0.2);" onout="tween(width,20,0.2);" onclick="delayedcall(0.3,youtubeplayer_close();); tween(alpha,0); set(enabled,false);" />
+	<!-- Close video   Кнопка закрыть видео-->	   
+	<layer name="close7"  keep="true" align="righttop" x="23"  y="23" url="picture/close.png" zorder="56" 
+	        width="20" height="prop" alpha="0" edge="center" visible="true" bgcapture="true" handcursor="true"
+	        onover="tween(width,25,0.2);" onout="tween(width,20,0.2);" onclick="delayedcall(0.3,videoplayer_close();); tween(alpha,0); set(enabled,false);" />
+	<!-- play video    Кнопка плей видео -->	   
+	<layer name="play_vid_icon"  keep="true" align="center"  url="picture/media_playback_start.png"
+			zorder="100" enabled="false" visible="false" scale="0.7"
+	        width="100" height="prop" alpha="0" edge="center" bgcapture="false" handcursor="false" />
+	<!-- close_freim_url   Кнопка закрыть -->	   
+	<layer name="close_freim_url_addhs"  keep="true" align="righttop" x="35"  y="23" url="picture/close.png" zorder="51" 
+	        width="20" height="prop" alpha="1" edge="center" visible="false" bgcapture="true" handcursor="true" onclick="" />		
+		
+
+		
+	<!-- ////////////////////////////////////////            БЛОК ФРЕЙМ HTML                /////////////////////////////////////////////////////////////////////// -->
+	
+	<!-- Плагин блюр  -->
+	<!-- <plugin name="pp_blur" keep="true" url="%VIEWER%/plugins/pp_blur.js" enabled="true" range="0.0" linearrgb="false" zorder="50" order="1" phase="2" /> -->
+	
+	<!-- Фоновый слой  -->
+	<layer name="pp_blur2" type="container" keep="true" width="100%" height="100%" enabled="false" bgcapture="true" handcursor="false" zorder="5"
+			  onclick="	set(enabled, false);
+							set(events[popup].name, null);
+							tween(plugin[pp_blur].range, 0.0);
+							tween(layer[popup].alpha, 0.0, 0.25, default, removelayer(popup, true); );
+							scope(private:POPUP, delete(popup); );  " 
+		/>
+	<!-- Окно под инфо html  -->
+	<style name="frame_html" type="container" alpha="0" keep="true" align="center"  width="70%" height="90%" align.mobile="center" 
+			  width.mobile="100%" height.mobile="100%"
+		      padding="0"  zorder="52"  bgroundedge="2"
+			  bgborder="0 0xFFFFFF 1" bgcolor="0xe7dec7"  bgalpha="0" 
+		/>
+	<!-- Контейнер под HTML  -->	 
+	<style name="infospot" keep="true"	type="container" align="center" alpha="0" capture="true"  handcursor="false" maskchildren="true" zorder="6"
+			  bgborder="1 0xFFFFFF 1"  bgcolor="0x555555" bgalpha="0.7" bgshadow="0 10 20 0x000000 0.5" bgcapture="true" 
+			  onloaded="add_html_code(get(datacontent),true);"
+		/>
+	<!-- Крестик закрыть HTML  -->	 
+	<style name="close_freim_url"  keep="true"  align="righttop" edge="center" width="20" width.mobile="15" height="prop"  x="35"  y="20" zorder="7"
+			  url="picture/close.png"  bgcapture="false" handcursor="true" parent="popup" 
+			  onover="set(scale,1.2);" onout="set(scale,1.0);" onclick="callwith(layer[pp_blur2],onclick);"
+		/>
+
+	
+	
+	<!-- Soundinterface Plugin  -->	
+	<plugin name="sound2Adhs" url.html5="%FIRSTXML%/plugins/soundinterface.js" url.flash="%FIRSTXML%/plugins/soundinterface.swf"
+        preload="true"
+        rootpath="%CURRENTXML%/add_hotspot/sound/"
+        volume="1.0"
+        mute="false"
+        panningmodel="simple"
+        worldscale="1.0"
+        autopause="false"
+        autounlock="true"
+        />
+
+	<!-- открыть фотографию  -->	
+	<photSM  height="80%"
+					width="prop" 
+					bgcolor=""
+					onclick="close_photo_add_hs();"
+			/>
+
+
+		
+</krpano>

@@ -1,0 +1,86 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1,user-scalable=no">
+
+    <link rel="stylesheet" href="/static/resource/rental/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/resource/rental/css/animate.min.css">
+    <link rel="stylesheet" href="/static/resource/rental/css/style.css">
+    <style>
+		html,body {overflow:hidden;height:100%;}
+    </style>
+</head>
+<body class="vr-detail">
+<div class="blockui" style="opacity:0.7;"></div>
+<div id="art_detail_wrapper" class="art-detail-wrapper" style="opacity: 1;">
+    <div class="container">
+        <div class="row " style="height: 100%">
+            <div class="col-md-7" style="background-image: url(/static/images/background.svg); background-position: center center; background-repeat: no-repeat; background-size: contain; padding: 48px; width: 100%; text-align: center; display:flex;">
+                <div class="col-md-12 align-self-center">
+                    <figure class="" style="margin: 0px">
+                        <img src="{{ img }}" style="width: 100%; box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.2); animation: fadeInLeft 1s;">
+                    </figure>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-4 pl-lg-4 pl-md-4" style="display:flex; background-color: beige; animation: fadeInDown 2s;">
+                <div class="pt-5 align-self-center">
+                    <h1 style="margin-bottom: 60px;">{{ title }}</h1>
+                    <p class="lead mt-4">
+                        {{ detail }}
+                    </p>
+                    <hr>
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <p>
+                                <strong>정은호</strong>
+                                <br>
+                                {{ year }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/resource/rental/js/lib/jquery-3.3.1.min.js"></script>
+<script src="/static/resource/rental/js/lib/bootstrap.min.js"></script>
+</body>
+<style>
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            transform: translate3d(0, -100%, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translateZ(0);
+        }
+    }
+
+    @keyframes fadeInLeft {
+        0% {
+            opacity: 0;
+            transform: translate3d(-100%, 0, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translateZ(0);
+        }
+    }
+
+    .hoverEffect {
+        overflow: hidden;
+    }
+
+    .hoverEffect img {
+        transition: all 0.2s linear;
+    }
+
+    .hoverEffect:hover img {
+        transform: scale(1.05);
+    }
+</style>
+</html>

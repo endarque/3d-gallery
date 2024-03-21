@@ -1,0 +1,324 @@
+﻿<krpano version="1.21" title="artbonbon VR Gallery">
+
+    <include url="add_hotspot/plugins_l/add_hotspot.xml"/>
+	<include url="../../gallery_components/plugins/popup.xml"/>
+
+    <!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+    <skin_settings maps="false"
+                   maps_type="google"
+                   maps_bing_api_key=""
+                   maps_google_api_key=""
+                   maps_zoombuttons="false"
+                   gyro="true"
+                   webvr="true"
+                   webvr_gyro_keeplookingdirection="false"
+                   webvr_prev_next_hotspots="true"
+                   littleplanetintro="false"
+                   title="true"
+                   thumbs="false"
+                   thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+                   thumbs_opened="false"
+                   thumbs_text="false"
+                   thumbs_dragging="true"
+                   thumbs_onhoverscrolling="false"
+                   thumbs_scrollbuttons="false"
+                   thumbs_scrollindicator="false"
+                   thumbs_loop="false"
+                   tooltips_buttons="false"
+                   tooltips_thumbs="false"
+                   tooltips_hotspots="false"
+                   tooltips_mapspots="false"
+                   deeplinking="false"
+                   loadscene_flags="MERGE"
+                   loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+                   loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+                   loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+                   loadingtext=""
+                   layout_width="100%"
+                   layout_maxwidth="500"
+                   controlbar_width="-24"
+                   controlbar_height="40"
+                   controlbar_offset="20"
+                   controlbar_offset_closed="-40"
+                   controlbar_overlap.no-fractionalscaling="10"
+                   controlbar_overlap.fractionalscaling="0"
+                   design_skin_images="vtourskin.png"
+                   design_bgcolor="0x2D3E50"
+                   design_bgalpha="0.8"
+                   design_bgborder="0"
+                   design_bgroundedge="1"
+                   design_bgshadow="0 4 10 0x000000 0.3"
+                   design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+                   design_thumbborder_padding="2"
+                   design_thumbborder_bgroundedge="0"
+                   design_text_css="color:#FFFFFF; font-family:Arial;"
+                   design_text_shadow="1"
+    />
+
+    <!--
+        For an alternative skin design either change the <skin_settings> values
+        from above or optionally include one of the predefined designs from below.
+    -->
+    <include url="skin/vtourskin_design_ultra_light.xml"/>
+    <!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+    <!--<include url="skin/vtourskin_design_glass.xml"       />-->
+    <!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+    <!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+    <!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+    <!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+
+
+
+    <action name="startup" autorun="onstart">
+        <!-- krpano 가 시작되면 바로 scene을 로드 -->
+        if(startscene === null || !scene[get(startscene)], copy(startscene,scene[0].name); );
+        loadscene(get(startscene), null, MERGE);
+    </action>
+	<editor_hs pin="off" />
+    <!-- 회전값 설정 -->
+    <autorotate enabled="false" waittime="3" speed="3" horizon="0.0" tofov="360"/>
+
+    <scene name="artbonbon_vrGallery" title="" onstart="" thumburl="" lat="" lng="" heading="">
+		<include url="../../gallery_components/plugins/buttons.xml"/>
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+              limitview="auto"/>
+
+        <preview url="../../gallery_components/panos/s48.tiles/preview.jpg"/>
+        <image>
+            <cube url="../../gallery_components/panos/s48.tiles/pano_%s.jpg"/>
+        </image>
+
+        <addhs_settings video_close_click="false" youtube_close_click="false"/>
+        <hotspot name="hotspot_1" keep="false" style=""
+                 url="image/jiwon@pabloarts.com-spl-1667370795940_0b386a3f2302d409fd4e748982a84d18.923154-1677484284857_shadow.jpg?ver=1677484285546"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="0" atv="0" width="197" height="147" rx="0" ry="0" rz="0" ox="0"
+                 oy="-20" rotate="0" scale="1" edge="center" install_onclick="0" name_hs="웅장한 백두산 폭발"
+                 scene_EL="artbonbon_vrGallery" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="popup('iframe', '/detail?id=jiwon@pabloarts.com-spl-1676953986890_7c295d4e67c6f672c2187c84ff1b7fdf.1060280-1676968304480_shadow&amp;key=sample_1', 1200, 900, true);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_3" keep="false" style="link_hs_sm"
+                 url="image/jiwon@pabloarts.com-spl-1676953986890_7c295d4e67c6f672c2187c84ff1b7fdf.1060280-1676968304480_shadow.jpg?ver=1676968304875"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="0" atv="0" width="173" height="147" rx="0" ry="0" rz="0" ox="-309.4559862925679"
+                 oy="-89.14199144041282" rotate="0" scale="1" edge="lefttop" install_onclick="0"
+                 name_hs="내가 생각하는 4원소란? &amp;#40;물, 불, 땅, 공기&amp;#41;" scene_EL="artbonbon_vrGallery" info_Ah="null" scene_num="0"
+                 fov_EL="140" enabled2="true" visible2="true" drag_hs="true"
+                 onclick="popup('iframe', '/detail?id=jiwon@pabloarts.com-spl-1676953986890_7c295d4e67c6f672c2187c84ff1b7fdf.1060280-1676968304480_shadow&amp;key=sample_1', 1200, 900, true);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_5" keep="false" style="link_hs_sm"
+                 url="image/jiwon@pabloarts.com-spl-1676953900237_3ccee1626359b284bb9c912e313805ca.658284-1676968047768_shadow.jpg?ver=1676968048138"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="0" atv="0" width="174" height="147" rx="0" ry="0" rz="0" ox="126.82587277789685"
+                 oy="-88.71153198910753" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="숲속 새들"
+                 scene_EL="artbonbon_vrGallery" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="popup('iframe', '/detail?id=jiwon@pabloarts.com-spl-1676953986890_7c295d4e67c6f672c2187c84ff1b7fdf.1060280-1676968304480_shadow&amp;key=sample_1', 1200, 900, true);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_17" keep="false" style="link_hs_sm"
+                 url="image/jiwon@pabloarts.com-spl-1667370795940_61ce750c232e15098a78770d013fcd8a.959034-1677052563293_shadow.jpg?ver=1677052564089"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="270" atv="0" width="192" height="147" rx="0" ry="0" rz="0" ox="22.70427286356835"
+                 oy="-203.95820508915784" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="100년 후의 전쟁"
+                 scene_EL="artbonbon_vrGallery" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="popup('iframe', '/detail?id=jiwon@pabloarts.com-spl-1676953986890_7c295d4e67c6f672c2187c84ff1b7fdf.1060280-1676968304480_shadow&amp;key=sample_1', 1200, 900, true);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_19" keep="false" style="link_hs_sm"
+                 url="image/jiwon@pabloarts.com-spl-1672819195202_f78c2df97e875f8b3ddea40a2f341b89.848123-1677480492127_shadow.jpg?ver=1677480493241"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="270" atv="0" width="193" height="147" rx="0" ry="0" rz="0" ox="241.59482758620675"
+                 oy="-205.34298921967587" rotate="0" scale="1" edge="lefttop" install_onclick="0"
+                 name_hs="강이 흐르는 숲에서 들리는 소리" scene_EL="artbonbon_vrGallery" info_Ah="null" scene_num="0" fov_EL="140"
+                 enabled2="true" visible2="true" drag_hs="true"
+                 onclick="popup('iframe', '/detail?id=jiwon@pabloarts.com-spl-1676953986890_7c295d4e67c6f672c2187c84ff1b7fdf.1060280-1676968304480_shadow&amp;key=sample_1', 1200, 900, true);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_21" keep="false" style="link_hs_sm"
+                 url="image/jiwon@pabloarts.com-spl-1655426054437_92a6af4c11fe2bbcbfcdbc66d74a913a.679700-1676967823551_shadow.jpg?ver=1676967823918"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="270" atv="0" width="198" height="147" rx="0" ry="0" rz="0" ox="60.18553223388301"
+                 oy="-30.061647747554844" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="펭귄 빙하기"
+                 scene_EL="artbonbon_vrGallery" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="popup('iframe', '/detail?id=jiwon@pabloarts.com-spl-1676953986890_7c295d4e67c6f672c2187c84ff1b7fdf.1060280-1676968304480_shadow&amp;key=sample_1', 1200, 900, true);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_23" keep="false" style="link_hs_sm"
+                 url="image/jiwon@pabloarts.com-spl-1677483313145_416ab6183298489c5d23d36e86299d6a.811512-1677483391167_shadow.jpg?ver=1677483391849"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="270" atv="0" width="201" height="147" rx="0" ry="0" rz="0" ox="282.0745877061472"
+                 oy="-27.25957556935822" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="나만의 자동차"
+                 scene_EL="artbonbon_vrGallery" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="popup('iframe', '/detail?id=jiwon@pabloarts.com-spl-1676953986890_7c295d4e67c6f672c2187c84ff1b7fdf.1060280-1676968304480_shadow&amp;key=sample_1', 1200, 900, true);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_25" keep="false" style="link_hs_sm"
+                 url="image/jiwon@pabloarts.com-spl-1672819195202_d6525028d00c0a7bf499e52cc8b46d6c.811491-1676966930002_shadow.jpg?ver=1676966930361"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="90" atv="0" width="193" height="147" rx="0" ry="0" rz="0" ox="-419.5745877061469"
+                 oy="-209.7752641536374" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="클래식 오케스트라 공연"
+                 scene_EL="artbonbon_vrGallery" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="popup('iframe', '/detail?id=jiwon@pabloarts.com-spl-1676953986890_7c295d4e67c6f672c2187c84ff1b7fdf.1060280-1676968304480_shadow&amp;key=sample_1', 1200, 900, true);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_27" keep="false" style="link_hs_sm"
+                 url="image/jiwon@pabloarts.com-spl-1667372353712_f780dc4a1f01a0fe34ca3fab03ff781b.815165-1676969601111_shadow.jpg?ver=1676969601494"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="90" atv="0" width="191" height="147" rx="0" ry="0" rz="0" ox="-202.1832833583207"
+                 oy="-212.95370733803333" rotate="0" scale="1" edge="lefttop" install_onclick="0"
+                 name_hs="바깥 풍경을 그리는 내 모습" scene_EL="artbonbon_vrGallery" info_Ah="null" scene_num="0" fov_EL="140"
+                 enabled2="true" visible2="true" drag_hs="true"
+                 onclick="popup('iframe', '/detail?id=jiwon@pabloarts.com-spl-1676953986890_7c295d4e67c6f672c2187c84ff1b7fdf.1060280-1676968304480_shadow&amp;key=sample_1', 1200, 900, true);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+
+        <hotspot name="hotspot_33" keep="false" style="link_hs_sm"
+                 url="image/jiwon@pabloarts.com-spl-1672986822004_49710485ad083ecbb62fd711b5e781d5.745448-1676967247148_shadow.jpg?ver=1676967247545"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="90" atv="0" width="194" height="147" rx="0" ry="0" rz="0" ox="-164.7020239880062"
+                 oy="-37.81980438352252" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="무인도 생활 7년 차"
+                 scene_EL="artbonbon_vrGallery" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="popup('iframe', '/detail?id=jiwon@pabloarts.com-spl-1676953986890_7c295d4e67c6f672c2187c84ff1b7fdf.1060280-1676968304480_shadow&amp;key=sample_1', 1200, 900, true);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+        <hotspot name="hotspot_39" keep="false" style="link_hs_sm"
+                 url="image/jiwon@pabloarts.com-spl-1674632558281_db61487eb6455a111a431ba63598e156.800763-1677480555598_shadow.jpg?ver=0"
+                 distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="5"
+                 zoom="true" ath="90" atv="0" width="192" height="147" rx="0" ry="0" rz="0" ox="-382.09332833583215"
+                 oy="-36.17330283356182" rotate="0" scale="1" edge="lefttop" install_onclick="0" name_hs="7살의 예솔이"
+                 scene_EL="artbonbon_vrGallery" info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true"
+                 drag_hs="true"
+                 onclick="popup('iframe', '/detail?id=jiwon@pabloarts.com-spl-1676953986890_7c295d4e67c6f672c2187c84ff1b7fdf.1060280-1676968304480_shadow&amp;key=sample_1', 1200, 900, true);"
+                 onhover="if(get(stagewidth) GT 400,showtext(get(name_hs), STYLE1_LinkSM));" onover="0"
+                 ondown="drag_LinkSM()" onout="0" onloaded="0"/>
+    </scene>
+
+    <action name="popup" scope="private:POPUP" args="type, content, width, height, scrollbars, onclose_callback"><![CDATA[
+		if(popup, break(); );
+
+		addlayer('popup_bg', popup_bg);
+		set(popup_bg,
+			type=container,
+			align=lefttop, width=100%, height=100%,
+			zorder=99,
+			handcursor=false,
+			bgcapture=true,
+			capture=false,
+			//bgcolor=0x123456, onloaded='tween(bgalpha,0.3,1.0);',	// optional: colorize the background
+			onclick='popup_close()'
+		);
+
+
+		addlayer('popup', popup);
+		set(popup,
+			type=container,
+			parent='popup_bg',
+			width=calc(min(width,global.stagewidth*0.9)),
+			height=calc(min(height,global.stageheight*0.8)),
+			align=center,
+			bgborder='1 0x555555 1',
+			bgcolor=0x555555,
+			bgalpha=0.7,
+			bgshadow='0 10 20 0x000000 0.5',
+			bgcapture=true,
+			maskchildren=false,
+			capture=true,
+			handcursor=false,
+			alpha=0
+		);
+
+		/*
+		// optional: add a close button
+		addlayer('popup_close_x', closex);
+		set(closex,
+			url='%CURRENTXML%/closex.png',
+			parent='popup',
+			align=righttop,
+			edge=center,
+			scale=0.5,
+			zorder=99,
+			alpha=0.25,
+			onover='tween(alpha,1)',
+			onout='tween(alpha,0.25)',
+			ondown='tween(alpha,1)',
+			onup='tween(alpha,0.25)',
+			onclick='popup_close()'
+		);
+		*/
+
+		if(type == 'html',
+			set(popup.type, html);
+			copy(popup.html, content);
+			copy(popup.htmlscrollbars, scrollbars);
+
+		  ,type == 'iframe',
+			set(popup.type, iframe);
+			copy(popup.iframeurl, content);
+
+		  ,type == 'image',
+		 	set(popup,
+		 		bgcolor=0xFFFFFF,
+		 		bgalpha=1,
+		 	);
+			addlayer("popup_image", img);
+			set(img,
+				url=get(content),
+				align=center,
+				width=-20, height=-20,
+				parent=get(popup.name),
+				onloaded='popup_imageloaded()'
+			);
+		);
+
+		tween(global.plugin[pp_blur].range, 40.0);
+		delayedcall(0.2, tween(global.layer[popup].alpha, 1.0); );
+
+		// events when the popup should get closed automatically
+		set(global.events[popup].onremovepano, popup_close() );
+	]]></action>
+
+
+	<action name="popup_close" scope="private:POPUP">
+		if (onclose_callback,
+			callback = onclose_callback;
+			onclose_callback = null;
+			scope(global, get(callback) );
+		);
+
+		set(global.plugin[popup_bg].enabled, false);
+		set(global.events[popup].name, null);
+		tween(global.plugin[pp_blur].range, 0.0);
+		tween(global.layer[popup_bg].bgalpha, 0.0, 0.25);
+		tween(global.layer[popup].alpha, 0.0, 0.25, default,
+			removelayer('popup_bg', true);
+			scope(private:POPUP, delete(popup); );
+		);
+	</action>
+
+
+	<action name="popup_imageloaded" scope="private:POPUP">
+		calc(imgw, caller.imagewidth + 20);
+		calc(imgh, caller.imageheight + 20);
+		calc(maxw, global.stagewidth*0.9);
+		calc(maxh, global.stageheight*0.8);
+		if(imgw GT maxw,
+			calc(imgh, round(imgh * maxw / imgw));
+			copy(imgw, maxw);
+		);
+		if(imgh GT maxh,
+			calc(imgw, round(imgw * maxh / imgh));
+			copy(imgh, maxh);
+		);
+
+		set(global.layer[get(caller.parent)], width=get(imgw), height=get(imgh) );
+	</action>
+</krpano>

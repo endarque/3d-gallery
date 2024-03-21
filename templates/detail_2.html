@@ -1,0 +1,241 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1,user-scalable=no">
+
+    <link rel="stylesheet" href="/static/resource/rental/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/resource/rental/css/animate.min.css">
+    <link rel="stylesheet" href="/static/resource/rental/css/mCustomScrollbar.min.css">
+    <style>
+		html,body {overflow:hidden;height:100%;}
+    </style>
+</head>
+<body class="vr-detail">
+<div class="blockui" style="opacity:0.7;"></div>
+<div id="art_detail_wrapper" class="art-detail-wrapper" style="opacity: 1;">
+    <div class="top">
+        <div class="wrapper">
+            <div class="line_div">
+                <div class="line_container">
+                    <div class="line">
+                        <span class="line_span">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="name_div">
+                <div class="name_container">
+                    <h1 class="name">{{ title }}</h1>
+                </div>
+            </div>
+            <div class="photo_div">
+                <div class="photo_container">
+                    <img decoding="async" src="{{ img }}" class="photo" alt="" loading="lazy">
+                </div>
+            </div>
+            <section class="detail_section">
+                <div class="detail_div">
+                    <div class="detail_container">
+                        <div class="detail">
+                            <div class="detail_title_div">
+                                <div class="detail_title_container">
+                                    <h3 class="detail_title">Art Detail </h3>
+                                </div>
+                            </div>
+                            <div class="detail_text_div">
+                                <div class="detail_text">
+                                    {{ detail }}
+                                </div>
+                            </div>
+                            <div class="detail_name_div">
+                                <div class="detail_name">
+                                    정은호, 2023</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<script src="/static/resource/rental/js/lib/jquery-3.3.1.min.js"></script>
+<script src="/static/resource/rental/js/lib/bootstrap.min.js"></script>
+</body>
+<style>
+    .top {
+        width: 100%
+    }
+
+    .top .wrapper {
+        justify-content: center;
+        display: flex;
+        position: relative;
+        width: 100%;
+        flex-wrap: wrap;
+        align-content: flex-start;
+    }
+
+    .line_div {
+        margin-bottom: 10px;
+        width: 100%;
+        --divider-border-style: solid;
+        --divider-color: #e33916;
+        --divider-border-width: 48px;
+    }
+
+    .line_container {
+        padding: 0;
+    }
+
+    .line {
+        text-align: center;
+        padding-top: 0;
+        padding-bottom: 0;
+        display: flex;
+        box-sizing: border-box;
+    }
+
+    .line_span {
+        width: 1px;
+        margin: 0 auto;
+        border-top: var(--divider-border-width) var(--divider-border-style) var(--divider-color);
+        display: flex;
+        box-sizing: border-box;
+    }
+
+    .name_div {
+        text-align: center;
+        margin-bottom: 10px;
+        animation: fadeInDown 1s;
+    }
+
+    .name_container {
+
+    }
+
+    .name {
+        line-height: 1em;
+        margin: 0;
+        color: #211f1c;
+        font-size: 55px;
+    }
+
+    .photo_div {
+        margin-bottom: 32px;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        background-color: #00000030;
+    }
+
+    .photo_container {
+        margin: 24px 0 24px 0;
+        box-sizing: border-box;
+    }
+
+    .photo {
+        max-width: 1200px;
+        max-height: 420px;
+        box-shadow: 48px 96px 200px -48px rgba(31,48.99999999999999,51,.4);
+        vertical-align: middle;
+        display: inline-block;
+    }
+
+    .detail_section {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 0 80px;
+        width: 100%;
+        --swiper-theme-color: #000;
+        --swiper-navigation-size: 44px;
+        --swiper-pagination-bullet-size: 6px;
+        --swiper-pagination-bullet-horizontal-gap: 6px;
+        animation: fadeInUp 2s;
+    }
+
+    .detail_div {
+        max-width: 600px;
+        display: flex;
+        margin-right: auto;
+        margin-left: auto;
+        position: relative;
+        box-sizing: border-box;
+    }
+
+    .detail_container {
+        width: 100%;
+        position: relative;
+        min-height: 1px;
+        display: flex;
+    }
+
+    .detail {
+       padding: 0;
+        display: flex;
+        position: relative;
+        width: 100%;
+        flex-wrap: wrap;
+        align-content: flex-start;
+    }
+
+    .detail_title_div {
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .detail_title_container {
+       box-sizing: border-box;
+    }
+
+    .detail_title {
+        margin: 0;
+        color: #211f1c;
+        font-size: 3rem;
+        font-weight: 600;
+        font-family: 'Fraunces',serif;
+    }
+
+    .detail_text_div {
+        width: 100%;
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+    .detail_text {
+        margin: 0 0 -16px;
+        box-sizing: border-box;
+    }
+    .detail_name_div {
+        width: 100%;
+        position: relative;
+        text-align: right;
+    }
+
+    .detail_name {
+        margin: 0 0 -16px;
+        box-sizing: border-box;
+    }
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            transform: translate3d(0, -100%, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translateZ(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translate3d(0, 100%, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translateZ(0);
+        }
+    }
+</style>
+</html>

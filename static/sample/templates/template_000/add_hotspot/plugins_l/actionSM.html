@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<meta charset="utf-8">
+  <title>background-image</title>
+  
+  <link rel="stylesheet" href="styles/layout.css">
+  
+</head>
+<body>	
+ <style type="text/css"> 
+ body {
+    background-color:#2f2f2f; /* Цвет фона */
+   }
+   
+   .brd {
+    border: 6px double black; /* Параметры границы */
+    background: #777777; /* Цвет фона */
+    padding: 10px; /* Поля вокруг текста */
+   }
+   
+   ul {
+    font-family:Arial;
+	font-size: 13pt; /* Размер шрифта в пунктах */ 
+	color: #FFFFFF;
+	 line-height: 1.5;
+   }
+   
+     h2 {
+    font-family:Arial;
+	font-size: 16pt; /* Размер шрифта в пунктах */ 
+	color: #FFFFFF;
+   }
+   
+   
+
+a:visited {
+  color: #EF7D55;
+}
+a:hover {
+  color: #FF5555; 
+}
+
+  
+</style>
+	
+<h2>Commonly Used Actions</h2>
+	<hr>
+		<ul>
+			<b><a href="https://krpano.com/docu/actions/#top" target="_blank" >krpano Actions</a></b>
+			<li>set(alpha,0);</li>
+			<li>tween(alpha, 1.0 ,0.1);</li>
+			<li>tween(hotspot[hotspot_1].alpha, 1.0);</li>
+			<li>tween(view.fov, 150.0, 2.0);</li>
+			<li>switch(alpha, 0.2, 1.0, 1);</li>
+			<li>loadscene(scene1, null, MERGE, BLEND(1));</li>
+			<li>lookto(33,-22,30,smooth(100,50,20));</li>
+			<li>looktohotspot(hotspot_2, 40);</li>
+			<li>callwith(hotspot[hotspot_2],onclick);</li>
+			<li>delayedcall(2, set(alpha,0.5); );</li>
+			<li>openurl('https://krpano.com',_blank);</li>
+			<li>showlog(true);</li>
+			<li>trace(name);</li><br>
+				
+			<b><a href="http://novosibpano.ru/Plugins/Add_Hotspot_en.html#Builtfunctions" target="_blank" >plugin actions</a></b>
+			<li>flyoutSM(); -  Hotspot crashes to the center of the screen . </li>
+			<li>OpenPhotoSM(%SWFPATH%/add_hotspot/photo/nature1.jpg, Природа, 50); </li>
+			<li>VideoPlaySM(video-1024x512.mp4, video-1024x512-poster.jpg, 0.5, true, 80); </li>
+			<li>stop_all_video_hs(); -  stop all video spots  </li>
+			<li>play_soundSM(sound_hs_addhs, '%SWFPATH%/add_hotspot/sound/2.mp3',0.5, false); - play_soundSM(sound name, url, volume, loop); </li>
+			<li>YoutubOpenSM(i92-cHzRNTI, 70); </li>
+			<li>HideShowHotspot(); </li>
+			<li>hide_showGR(gr_1, true, true); <br> 
+			-  hide_showGR(name group, show gruppe, hishow the rest);</li><br>
+		
+			<b><a href="https://krpano.com/releases/1.20.6/examples/#pp-blur " target="_blank" >Postprocessing krpano</a></b>
+			<li>openFrame(html,get(data[data_html].content),400,300,true); <br>- open HTML from data    .</li>
+			<li>openFrame(iframe,'https://krpano.com',1200,900, true); <br>- Open site https://krpano.com in a frame .</li>
+			<li>openFrame('image', '%CURRENTXML%/add_hotspot/photo/nature1.jpg'); <br> - Open photo "photo.jpg".</li><br>
+			
+			<b><a href="https://krpano.com/plugins/soundinterface/#top" target="_blank" >Soundinterface Plugin  krpano</a></b>	
+			<li>playsound(sound1, 'hesaudio.mp3', false, 0.5, trace(end));  <br>- Open sound (name, url, loop, volume, oncomplete).
+			 </li>
+			<li>playsound_at_hv(sound1, 'hesaudio.mp3', 0, 0, 1000, false, 0.5, 90, trace(end)); <br> 
+			- Open sound (name, url, h, v, depth, loop, volume, range, oncomplete).
+			 </li>
+			
+			<li>pausesound(sound1); </li>
+			<li>resumesound(sound1); </li>
+			<li>togglesound(sound1); </li>
+			<li>stopsound(sound1); </li>
+		</ul>
+		
+		
+		
+</body>	
+</html>

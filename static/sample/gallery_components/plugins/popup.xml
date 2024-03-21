@@ -1,0 +1,138 @@
+<krpano>
+	<include url="iphone_fullscreen_swipe.xml"/>
+    <action name="popup" scope="private:POPUP" args="type, content, width, height, scrollbars, onclose_callback"><![CDATA[
+		if(popup, break(); );
+
+		addlayer('popup_bg', popup_bg);
+		set(popup_bg,
+			type=container,
+			align=lefttop, width=100%, height=100%,
+			zorder=99,
+			handcursor=false,
+			bgcapture=true,
+			capture=false,
+			//bgcolor=0x123456, onloaded='tween(bgalpha,0.3,1.0);',	// optional: colorize the background
+			onclick='popup_close()',
+		);
+
+		addlayer('popup', popup);
+		if (device.iphone,
+			set(popup,
+				type=container,
+				parent='popup_bg',
+				width=100%,
+				height=100%,
+				align=center,
+				bgborder='1 0x555555 1 20',
+				bgcolor=0x555555,
+				bgalpha=0.7,
+				bgshadow='0 10 20 0x000000 0.5',
+				bgcapture=true,
+				maskchildren=false,
+				capture=true,
+				handcursor=false,
+				bgroundedge="20",
+			);,
+			set(popup,
+				type=container,
+				parent='popup_bg',
+				width=calc(min(width,global.stagewidth)),
+				height=calc(min(height,global.stageheight)),
+				align=center,
+				bgborder='1 0x555555 1 20',
+				bgcolor=0x555555,
+				bgalpha=0.7,
+				bgshadow='0 10 20 0x000000 0.5',
+				bgcapture=true,
+				maskchildren=false,
+				capture=true,
+				handcursor=false,
+				bgroundedge="20",
+			);
+		);
+
+		// optional: add a close button
+		addlayer('popup_close_x', closex);
+		set(closex,
+			url='%CURRENTXML%/../../gallery_components/common/close.svg',
+			parent='popup',
+			align=righttop,
+			edge=center,
+			x = 20,
+			y = 20,
+			scale=1.5,
+			zorder=99,
+			alpha=0.5,
+			onover='tween(alpha,1)',
+			onout='tween(alpha,0.5)',
+			ondown='tween(alpha,1)',
+			onup='tween(alpha,0.5)',
+			onclick='popup_close()'
+		);
+
+
+		if(type == 'html',
+			set(popup.type, html);
+			copy(popup.html, content);
+			copy(popup.htmlscrollbars, scrollbars);
+
+		  ,type == 'iframe',
+			set(popup.type, iframe);
+			copy(popup.iframeurl, content);
+
+		  ,type == 'image',
+		 	set(popup,
+		 		bgcolor=0xFFFFFF,
+		 		bgalpha=1,
+		 	);
+			addlayer("popup_image", img);
+			set(img,
+				url=get(content),
+				align=center,
+				width=-20, height=-20,
+				parent=get(popup.name),
+				onloaded='popup_imageloaded()'
+			);
+		);
+
+		tween(global.plugin[pp_blur].range, 40.0);
+		delayedcall(0.2, tween(global.layer[popup].alpha, 1.0); );
+
+		// events when the popup should get closed automatically
+		set(global.events[popup].onremovepano, popup_close() );
+	]]></action>
+
+	<action name="popup_close" scope="private:POPUP">
+		if (onclose_callback,
+			callback = onclose_callback;
+			onclose_callback = null;
+			scope(global, get(callback) );
+		);
+
+		set(global.plugin[popup_bg].enabled, false);
+		set(global.events[popup].name, null);
+		tween(global.plugin[pp_blur].range, 0.0);
+		tween(global.layer[popup_bg].bgalpha, 0.0, 0.25);
+		tween(global.layer[popup].alpha, 0.0, 0.25, default,
+			removelayer('popup_bg', true);
+			scope(private:POPUP, delete(popup); );
+		);
+	</action>
+
+	<action name="popup_imageloaded" scope="private:POPUP">
+		calc(imgw, caller.imagewidth + 20);
+		calc(imgh, caller.imageheight + 20);
+		calc(maxw, global.stagewidth*0.9);
+		calc(maxh, global.stageheight*0.8);
+		if(imgw GT maxw,
+			calc(imgh, round(imgh * maxw / imgw));
+			copy(imgw, maxw);
+		);
+		if(imgh GT maxh,
+			calc(imgw, round(imgw * maxh / imgh));
+			copy(imgh, maxh);
+		);
+
+		set(global.layer[get(caller.parent)], width=get(imgw), height=get(imgh) );
+	</action>
+</krpano>

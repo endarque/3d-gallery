@@ -1,0 +1,43 @@
+<krpano>
+    <set var="device.fullscreensupport" val="true" />
+    <include url="ios_iframe_fullscreen.xml"/>
+    <!-- 텍스트 스타일 이쁘게 만들 것. 이미지 안됨. -->
+    <textstyle name="STYLE1_artbonbon"
+        font="sans-serif" fontsize.no-mobile="15" bold="false" italic="false" xoffset="0" yoffset="-20"
+        background="true" backgroundcolor="0x000000" backgroundalpha="0.8"
+        borderwidth="2" bordercolor="0xFFFFFF" roundedge="1"
+        textcolor="0xFFFFFF"
+        padding="10 10" txtshadow="3 3 4 0x00FFFF 0.5"
+        textalign="center"/>
+
+    <style name="hs_style_1" keep="false" distorted="true" alpha="1" capture="false" depth="1000" flying="0" handcursor="true" zorder="11"
+           width="197" height="147" zoom="true" rotate="0" scale="1" edge="center" install_onclick="0" scene_EL="artbonbon_vrGallery"
+           info_Ah="null" scene_num="0" fov_EL="140" enabled2="true" visible2="true" drag_hs="true"
+           onhover="if(get(stagewidth) GT 400, showtext(get(img_name), STYLE1_artbonbon));"
+           onclick="showDetail(get(id), get(reqUrl), get(gallery_id), get(urlFooter), get(url));"
+           onover="0" ondown="drag_LinkSM()" onout="0" onloaded="0"
+    />
+
+    <style name="layer_style_shadow" type="container" width="100%" height="100%" bgshadow="2 2 3 0x000000 0.6"/>
+
+    <style name="layer_style_medal" type="image" align="lefttop" x="10" scale="0.3"/>
+    <!-- allowTransparency=false -->
+    <action name="showDetail" scope="local" args="imgId, reqUrl, gallery_id, footer, url"><![CDATA[
+        if(contains(get(url), "placeholder.jpg"), , popup('iframe', %2%3%1%4, 1200, 900, true));
+    ]]></action>
+    <action name="addPicture" scope="local" args="reqUrl, imgId"><![CDATA[
+        popup('iframe', %1%2, 1200, 900, false);
+    ]]></action>
+
+    <action name="setIframe" scope="local" type="javascript"><![CDATA[
+        var div = document.getElementById("vrGallery_area");
+        var frames = div.getElementsByClassName("vr-detail");
+        console.log(div);
+        console.log(div.getElementsByTagName("iframe"));
+        console.log(frames);
+        console.log(frames['iframe']);
+        frames.setAttribute("border-radius", "20px");
+    ]]>
+
+    </action>
+</krpano>

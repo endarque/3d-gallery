@@ -1,0 +1,75 @@
+<link rel="stylesheet" href="/static/resource/rental/css/artdetail.css">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="exampleModal" style="max-height: 972px;">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 1200px; height:94%;">
+        <div class="modal-content" style="height: 100%">
+            <div class="modal-body" style="padding: 0">
+                <div id="art_detail_wrapper" class="art-detail-wrapper" style="opacity: 1; height:100%; margin-top: 0">
+                    <div class="curie_view">
+                        <div class="curie_left">
+                            <div id="curie_img_wrap" class="curie_img" style="max-width: 500px; margin-left: 150px;">
+                                <img id="modal_img_big" src="static/images/artimages/image (1).jpg" alt="">
+                            </div>
+                            <div class="curie_info">
+
+                            </div>
+                        </div>
+                        <div class="curie_right" style="">
+                            <div class="curie_top_btns">
+
+                            </div>
+                            <h2 id="curie_detail_info_title">[그림 제목]</h2>
+                            <span class="info_size"></span>
+                            <div id="m_curie_img_wrap" class="m_curie_img">
+                                <div class="curie_img">
+                                    <img id="modal_img_small" src="static/images/artimages/image (1).jpg" alt="" class="animated-fast fadeInLeft">
+                                </div>
+                                <div class="curie_info">
+
+                                </div>
+                            </div>
+                            <ul class="curie_view_tab">
+                                <li class="on"><span class="rental-txt-tab2">그림 설명</span></li>
+                            </ul>
+                            <div class="view_slider">
+                                <div id="art_detail_art_info" class="curie_view_info" style="display: block;">
+                                    예술작품에 대한 설명이 들어갑니다.
+                                </div>
+                                <div id="art_detail_artist_info" class="curie_view_info"></div>
+                                <div class="curie_view_info">
+                                    <div style="text-align:right;">
+                                        <button type="button" id="art_review_more" class="button btn-dark"
+                                                style="padding: 8px 15px;display:none;">more
+                                        </button>
+                                    </div>
+                                    <div id="art_detail_visitor" class="visitor-slider mt-3 owl-carousel"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="modal_button" style="display:none"></button>
+<script>
+    $("a").click(function () {
+        var tag = $(this).attr('href');
+        console.log(tag);
+        if ( tag == '#' ) {
+            var src = $(this).children('img').attr('src');
+            $('#modal_img_small').attr('src', src);
+            $('#modal_img_big').attr('src', src);
+            $('#modal_button').click();
+        }
+        else {
+            if( $(this).attr('class') == 'scrollToTop') {
+                $('html, body').animate({scrollTop : 0}, 800);
+            }
+            else {
+                var offset = $(tag).offset();
+                $('html, body').animate({scrollTop: offset.top}, 800);
+            }
+        }
+    });
+</script>
