@@ -1,4 +1,7 @@
-# Jongwon Chung
+# 3d gallery Sample
+
+# description
+웹 사이트에서 3D 갤러리 생성 후 해당 갤러리에 전시된 그림을 확인하고, 해당 그림에 대한 상세 정보를 볼 수 있는 사이트
 
 ## stack
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
